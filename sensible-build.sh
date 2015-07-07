@@ -31,7 +31,7 @@ clone_or_update https://github.com/flightaware/piaware.git v2.1-1 $OUTDIR/piawar
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/mutability/dump1090 e5053ac5c991385e2782ff844b585ddc02e50f38 $OUTDIR/dump1090
+clone_or_update https://github.com/mutability/dump1090 45d645a8643a60a7c84053338de04d8e038541d4 $OUTDIR/dump1090
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.2 $OUTDIR/mlat-client
 
