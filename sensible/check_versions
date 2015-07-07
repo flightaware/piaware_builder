@@ -1,0 +1,20 @@
+#!/bin/sh -e
+
+PIAWARE_VERSION=$(echo 'source piaware/programs/piaware/config.tcl; puts [set piawareVersionFull]' | tclsh8.5)
+CHANGELOG_VERSION=$(dpkg-parsechangelog | sed -n 's/^Version: //p')
+if [ "$PIAWARE_VERSION" != "$CHANGELOG_VERSION" ]
+then
+    cat >&2 <<EOF
+
+Version mismatch:
+
+  debian/changelog (copied from piaware_builder/changelog) has latest version: $CHANGELOG_VERSION
+  piaware/programs/piaware/config.tcl has piawareVersionFull set to: $PIAWARE_VERSION
+
+Please fix this so the versions match and rebuild.
+
+EOF
+  exit 1
+fi
+
+exit 0

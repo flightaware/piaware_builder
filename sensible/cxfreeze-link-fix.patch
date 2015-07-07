@@ -1,0 +1,12 @@
+diff -ur cx_Freeze-4.3.4/setup.py cx_Freeze-4.3.4.new/setup.py
+--- cx_Freeze-4.3.4/setup.py	2014-12-26 22:55:55.000000000 +0000
++++ cx_Freeze-4.3.4.new/setup.py	2015-06-15 16:42:10.599154135 +0100
+@@ -81,7 +81,7 @@
+                 extraArgs.append("-mwindows")
+         else:
+             vars = distutils.sysconfig.get_config_vars()
+-            if not vars.get("Py_ENABLE_SHARED", 0):
++            if True:   # not vars.get("Py_ENABLE_SHARED", 0):
+                 libraryDirs.append(vars["LIBPL"])
+                 libraries.append("python%s.%s" % sys.version_info[:2])
+                 if vars["LINKFORSHARED"] and sys.platform != "darwin":
