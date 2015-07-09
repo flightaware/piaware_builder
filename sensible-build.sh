@@ -27,13 +27,13 @@ OUTDIR=$TOP/package
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v2.1-1 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git v2.1-2 $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
 clone_or_update https://github.com/mutability/dump1090 45d645a8643a60a7c84053338de04d8e038541d4 $OUTDIR/dump1090
 
-clone_or_update https://github.com/mutability/mlat-client.git v0.2.2 $OUTDIR/mlat-client
+clone_or_update https://github.com/mutability/mlat-client.git v0.2.3 $OUTDIR/mlat-client
 
 # get a copy of cxfreeze and patch it for building on Debian
 if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
