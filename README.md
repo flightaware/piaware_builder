@@ -13,10 +13,10 @@ including the correct repositories / branches.
 
 Run piaware_builder/sensible-build.sh. It will:
 
-  create piaware_builder/package/, the package directory
-  check out the various parts of piaware from git into package/
-  copy some control files from piaware_builder/sensible/ to package/debian/
-  copy the changelog from piaware_builder/changelog to package/debian/changelog
+* create piaware_builder/package/, the package directory
+* check out the various parts of piaware from git into package/
+* copy some control files from piaware_builder/sensible/ to package/debian/
+* copy the changelog from piaware_builder/changelog to package/debian/changelog
 
 If you are going to be building on another machine, you can copy the
 package directory there; it is selfcontained.
@@ -41,15 +41,21 @@ If you use pdebuild it will do this for you.
 Change to the package directory on your build machine and build with a
 debian package building tool of your choice:
 
+```
   $ dpkg-buildpackage -b
+```
 
 or
 
+```
   $ debuild
+```
 
 or
 
+```
   $ pdebuild
+```
 
 etc.
 
