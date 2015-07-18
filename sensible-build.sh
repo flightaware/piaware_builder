@@ -14,7 +14,7 @@ clone_or_update() {
   then
     (cd $target && git fetch origin)
   else
-    git clone --depth=1 --no-single-branch $repo $target
+    git clone $repo $target
   fi
 
   (cd $target && git checkout -q --detach $branch --)
