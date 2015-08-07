@@ -1,3 +1,26 @@
+piaware (2.1-3~dev) UNRELEASED; urgency=medium
+
+  * Update to mlat-client 0.2.4:
+    * Fix exception reporting when using cxfreeze.
+    * Periodically report server synchronization status.
+    * Report Mode S vs ADS-B aircraft counts.
+
+  * Move all helpers (faup1090, fa-mlat-client) to /usr/lib/piaware/helpers.
+
+  * Always use the packaged helpers, don't try $PATH.
+
+  * Pass --stdout to faup1090 to provoke an error if it's an old version that
+    doesn't write to stdout.
+
+  * Report the versions of installed dump1090 packages on login
+
+  * Grab a lock on the piaware pidfile to avoid ever running two copies.
+
+  * Filter mlat results if they somehow get looped back to faup1090 without
+    the timestamp that identifies them as being mlat results.
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 07 Aug 2015 10:49:00 +0100
+
 piaware (2.1-2) unstable; urgency=medium
 
   * Add piaware-config -mlatResultsFormat, which gives control over the
