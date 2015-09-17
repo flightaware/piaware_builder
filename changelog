@@ -21,6 +21,13 @@ piaware (2.1-3~dev) UNRELEASED; urgency=medium
 
   * Fix piaware-status when a non-English locale is used.
 
+  * Change the default mlat results port to 30104, so that it will not
+    automatically connect to a non-mlat-aware dump1090. If you do want to
+    connect to a non-mlat-aware dump1090 listening on the default port 30004,
+    you can do this via "piaware-config -mlatResultsFormat
+    beast,connect,localhost:30004". Please be careful that mlat results do
+    not get forwarded to places that don't want to see them if you do this.
+
  -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 07 Aug 2015 10:49:00 +0100
 
 piaware (2.1-2) unstable; urgency=medium
