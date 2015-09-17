@@ -19,6 +19,8 @@ piaware (2.1-3~dev) UNRELEASED; urgency=medium
   * Filter mlat results if they somehow get looped back to faup1090 without
     the timestamp that identifies them as being mlat results.
 
+  * Fix piaware-status when a non-English locale is used.
+
  -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 07 Aug 2015 10:49:00 +0100
 
 piaware (2.1-2) unstable; urgency=medium
