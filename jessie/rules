@@ -1,0 +1,79 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DH_VERBOSE=1
+
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+#DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+
+PYTHON3=/usr/bin/$(shell py3versions -d)
+PYTHON3VER=$(shell py3versions -vd)
+
+VENV=$(CURDIR)/debian/venv
+
+CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
+
+override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv
+
+override_dh_auto_configure: check_versions configure_tcllauncher
+
+override_dh_auto_build: build_tcllauncher build_dump1090 setup_venv build_cxfreeze build_mlat-client
+
+override_dh_auto_install: install_tcllauncher install_dump1090 install_mlat-client install_piaware
+
+override_dh_strip:
+	# cxfreeze produces a launcher executable with a zipfile appended
+	# attempting to strip it will damage the zipfile
+	dh_strip -X debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
+
+check_versions:
+	debian/check_versions
+
+configure_tcllauncher:
+	cd tcllauncher; autoconf -f
+	dh_auto_configure -D tcllauncher -- --with-tcl=/usr/lib/tcl8.6
+
+build_dump1090:
+	make -C dump1090 DUMP1090_VERSION="piaware-$(CHANGELOG_VERSION)" faup1090
+
+install_dump1090:
+	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
+	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump1090/faup1090
+
+setup_venv:
+	pyvenv $(VENV) --without-pip
+
+clean_venv:
+	rm -fr $(VENV)
+
+build_cxfreeze:
+	cd cx_Freeze-4.3.4 && $(VENV)/bin/python ./setup.py install
+
+build_mlat-client:
+	cd mlat-client && $(VENV)/bin/python setup.py install
+
+install_mlat-client:
+	$(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers --include-modules=imp $(VENV)/bin/fa-mlat-client
+	chmod +x $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
+
+clean_mlat-client:
+	cd mlat-client && $(PYTHON3) setup.py clean -a
+
+install_piaware:
+	make -C piaware DESTDIR=$(CURDIR)/debian/piaware install
+
+configure_%:
+	dh_auto_configure -D $*
+
+build_%:
+	dh_auto_build -D $*
+
+install_%:
+	dh_auto_install -D $*
+
+clean_%:
+	dh_auto_clean -D $*
+
+%:
+	dh $@ --without=python-support

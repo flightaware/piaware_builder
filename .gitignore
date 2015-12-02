@@ -1,7 +1,8 @@
-package
 *~
 piaware*.changes
 piaware*.deb
 piaware*.tar.gz
 piaware*.dsc
 piaware*.build
+package-jessie
+package-wheezy

@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+TCLSH=$(which tclsh || true)
+if [ -z "$TCLSH" ]; then TCLSH=$(which tclsh8.6 || true); fi
+if [ -z "$TCLSH" ]; then TCLSH=$(which tclsh8.5 || true); fi
+if [ -z "$TCLSH" ]; then
+  echo "Can't find a suitable tclsh to run" >&2
+  exit 1
+fi
+
+
+PIAWARE_VERSION=$(echo 'source piaware/programs/piaware/config.tcl; puts [set piawareVersionFull]' | $TCLSH)
+CHANGELOG_VERSION=$(dpkg-parsechangelog | sed -n 's/^Version: //p')
+STRIPPED_CHANGELOG_VERSION=$(echo $CHANGELOG_VERSION | sed 's/~bpo.*$//')
+if [ "$PIAWARE_VERSION" != "$STRIPPED_CHANGELOG_VERSION" ]
+then
+    cat >&2 <<EOF
+
+Version mismatch:
+
+  debian/changelog (copied from piaware_builder/changelog) has latest version: $CHANGELOG_VERSION
+    after stripping any backports suffix, it is version: $STRIPPED_CHANGELOG_VERSION
+  piaware/programs/piaware/config.tcl has piawareVersionFull set to: $PIAWARE_VERSION
+
+Please fix this so the versions match and rebuild.
+
+EOF
+  exit 1
+else
+  echo "piaware version $PIAWARE_VERSION matches changelog version $CHANGELOG_VERSION, good!" >&2
+  exit 0
+fi

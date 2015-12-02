@@ -1,0 +1,15 @@
+Source: piaware
+Section: embedded
+Priority: extra
+Maintainer: FlightAware Developers <adsb-devs@flightaware.com>
+Build-Depends: debhelper(>=8), tcl8.6-dev, autoconf, python3-dev(>=3.2), python3-venv, libz-dev
+Standards-Version: 3.9.3
+Homepage: https://github.com/flightaware
+
+Package: piaware
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, net-tools, tclx8.4, tcl8.6, tcllib, tcl-tls, itcl3
+Conflicts: fa-mlat-client
+Replaces: fa-mlat-client
+Description: Open Aviation Data Exchange Protocol for ADS-B FlightFeeders
+  The client-side portion of fa_adept that sends aviation data via TCL sockets.
