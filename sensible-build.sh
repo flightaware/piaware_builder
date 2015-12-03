@@ -68,6 +68,10 @@ cp -r \
  $TOP/$dist/* \
   $OUTDIR/debian
 
+# copy over the init.d / systemd files from the piaware source
+cp $OUTDIR/piaware/scripts/piaware-rc-script $OUTDIR/debian/piaware.init
+cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.service
+
 case $dist in
   wheezy)
     echo "Updating changelog for wheezy backport build"

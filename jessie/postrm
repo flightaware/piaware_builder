@@ -21,7 +21,6 @@ set -e
 
 case "$1" in
     purge)
-	update-rc.d piaware remove >/dev/null
         ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

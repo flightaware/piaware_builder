@@ -8,7 +8,6 @@ export DH_VERBOSE=1
 include /usr/share/dpkg/buildflags.mk
 
 PYTHON3=/usr/bin/$(shell py3versions -d)
-PYTHON3VER=$(shell py3versions -vd)
 
 VENV=$(CURDIR)/debian/venv
 
@@ -27,12 +26,17 @@ override_dh_strip:
 	# attempting to strip it will damage the zipfile
 	dh_strip -X debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
 
+override_dh_installinit:
+	dh_installinit --no-restart-on-upgrade
+
+override_dh_systemd_start:
+	dh_systemd_start --no-restart-on-upgrade
+
 check_versions:
 	debian/check_versions
 
 configure_tcllauncher:
-	cd tcllauncher; autoconf -f
-	dh_auto_configure -D tcllauncher -- --with-tcl=/usr/lib/tcl8.6
+	cd tcllauncher && autoconf -f && ./configure --with-tcl=/usr/lib/tcl8.6
 
 build_dump1090:
 	make -C dump1090 DUMP1090_VERSION="piaware-$(CHANGELOG_VERSION)" faup1090
@@ -61,7 +65,7 @@ clean_mlat-client:
 	cd mlat-client && $(PYTHON3) setup.py clean -a
 
 install_piaware:
-	make -C piaware DESTDIR=$(CURDIR)/debian/piaware install
+	make -C piaware DESTDIR=$(CURDIR)/debian/piaware install SYSTEMD= SYSVINIT=
 
 configure_%:
 	dh_auto_configure -D $*
@@ -76,4 +80,4 @@ clean_%:
 	dh_auto_clean -D $*
 
 %:
-	dh $@ --without=python-support
+	dh $@ --with=systemd
