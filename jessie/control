@@ -9,6 +9,7 @@ Homepage: https://github.com/flightaware
 Package: piaware
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, net-tools, tclx8.4, tcl8.6, tcllib, tcl-tls, itcl3
+Recommends: dump1090-fa
 Conflicts: fa-mlat-client
 Replaces: fa-mlat-client
 Description: Open Aviation Data Exchange Protocol for ADS-B FlightFeeders
