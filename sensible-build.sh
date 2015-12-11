@@ -27,7 +27,7 @@ OUTDIR=$TOP/package
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v2.1-3 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git origin/master $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
