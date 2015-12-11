@@ -2,7 +2,7 @@ Source: piaware
 Section: embedded
 Priority: extra
 Maintainer: FlightAware Developers <adsb-devs@flightaware.com>
-Build-Depends: debhelper(>=8), tcl8.5-dev, autoconf, python3-dev (>= 3.2), python-virtualenv, libz-dev
+Build-Depends: debhelper(>=8), tcl8.5-dev, autoconf, python3-dev (>= 3.2), python-virtualenv, libz-dev, openssl
 Standards-Version: 3.9.3
 Homepage: https://github.com/flightaware
 #Vcs-Git: git://git.debian.org/collab-maint/fa-adept-adsb.git
