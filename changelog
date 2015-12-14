@@ -1,13 +1,12 @@
-piaware (2.1-4~dev) UNRELEASED; urgency=medium
+piaware (2.1-4) unstable; urgency=medium
 
-  * In development.
   * Update CA certificates used to validate piaware connections.
   * Log more info when we get errors/alerts from openssl.
   * Continue trying to reconnect if a connection fails because validation fails.
   * Be more careful about how we deal with timers to avoid duplicates or missing timers.
   * Avoid a tcl segfault when running on tcl 8.6.[012]
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 11 Dec 2015 18:39:17 +0000
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 14 Dec 2015 19:34:56 +0000
 
 piaware (2.1-3) unstable; urgency=medium
 
