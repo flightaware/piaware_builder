@@ -43,7 +43,7 @@ OUTDIR=$TOP/package-$dist
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git origin/master $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git origin/dev $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
