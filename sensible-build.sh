@@ -18,7 +18,7 @@ clone_or_update() {
   fi
 
   (cd $target && git checkout -q --detach $branch --)
-  (cd $target && git log -1 --oneline)
+  (cd $target && git --no-pager log -1 --oneline)
 }
 
 # setup:
