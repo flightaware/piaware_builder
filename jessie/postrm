@@ -21,6 +21,7 @@ set -e
 
 case "$1" in
     purge)
+        rm -fr /var/cache/piaware
         ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

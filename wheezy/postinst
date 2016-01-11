@@ -24,6 +24,7 @@ case "$1" in
             update-rc.d piaware defaults >/dev/null
             #invoke-rc.d piaware start || true
         fi
+        mkdir -p /var/cache/piaware
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
