@@ -17,10 +17,22 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+NAME=piaware
+RUNAS=piaware
 
 case "$1" in
     configure)
-        mkdir -p /var/cache/piaware
+        if ! getent passwd "$RUNAS" >/dev/null
+        then
+            adduser --system --home /usr/share/$NAME --no-create-home --quiet "$RUNAS"
+        fi
+
+        if [ ! -d /var/cache/piaware ]
+        then
+            mkdir -p /var/cache/piaware
+            chown $RUNAS:root /var/cache/piaware
+            chmod 0755 /var/cache/piaware
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
