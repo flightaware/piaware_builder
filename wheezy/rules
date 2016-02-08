@@ -61,7 +61,7 @@ clean_mlat-client:
 	cd mlat-client && $(PYTHON3) setup.py clean -a
 
 install_piaware:
-	make -C piaware DESTDIR=$(CURDIR)/debian/piaware TCLLAUNCHER=$(CURDIR)/debian/piaware/usr/bin/tcllauncher install
+	make -C piaware DESTDIR=$(CURDIR)/debian/piaware INSTALL_SUDOERS=1 TCLLAUNCHER=$(CURDIR)/debian/piaware/usr/bin/tcllauncher install
 
 configure_%:
 	dh_auto_configure -D $*
