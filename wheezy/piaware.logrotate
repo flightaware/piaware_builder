@@ -1,0 +1,10 @@
+/var/log/piaware.log {
+  create piaware root 0644
+  weekly
+  rotate 4
+  missingok
+  notifempty
+  postrotate
+    invoke-rc.d piaware rotate >/dev/null 2>&1 || true
+  endscript
+}
