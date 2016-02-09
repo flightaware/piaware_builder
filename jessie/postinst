@@ -24,7 +24,7 @@ case "$1" in
     configure)
         if ! getent passwd "$RUNAS" >/dev/null
         then
-            adduser --system --home /usr/share/$NAME --no-create-home --quiet "$RUNAS"
+            adduser --system --home /usr/share/$NAME --no-create-home --quiet --group "$RUNAS"
         fi
 
         if [ ! -d /var/cache/piaware ]
