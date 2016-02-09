@@ -33,6 +33,35 @@ case "$1" in
             chown $RUNAS:root /var/cache/piaware
             chmod 0755 /var/cache/piaware
         fi
+
+        # create stub piaware.conf with the right ownership if missing
+        if [ ! -f /etc/piaware.conf ]
+        then
+            cat >/etc/piaware.conf <<EOF
+# This file configures piaware and related software.
+# You can edit it directly or use piaware-config from the command line
+# to view and change settings.
+#
+# If /boot/piaware-config.txt also exists, then settings present in
+# that file will override settings in this file.
+EOF
+            chown root:$RUNAS /etc/piaware.conf
+            chmod 0640 /etc/piaware.conf  # this can contain passwords
+        fi
+
+        if [ -f /root/.piaware -o -f /etc/piaware ]
+        then
+            # upgrade legacy config files
+            /usr/share/piaware/upgrade-config.tcl || echo >&2 <<EOF
+Automatic config file upgrade failed. You may need to manually reconfigure
+piaware using piaware-config or by editing /etc/piaware.conf or
+/boot/piaware-config.txt. Your old config files are preserved as
+/root/.piaware.old and /etc/piaware.old
+EOF
+
+            [ -f /root/.piaware ] && mv /root/.piaware /root/.piaware.old
+            [ -f /etc/piaware ] && mv /etc/piaware /etc/piaware.old
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

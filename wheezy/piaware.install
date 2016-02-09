@@ -1,2 +1,1 @@
-debian/rsyslog/piaware.conf etc/rsyslog.d/
 debian/upgrade-config.tcl usr/share/piaware/
