@@ -1,1 +1,2 @@
 debian/upgrade-config.tcl usr/share/piaware/
+debian/piaware.conf etc/

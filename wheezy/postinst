@@ -39,17 +39,9 @@ case "$1" in
             chmod 0755 /var/cache/piaware
         fi
 
-        # create stub piaware.conf with the right ownership if missing
-        if [ ! -f /etc/piaware.conf ]
+        # fix piaware.conf ownership if present
+        if [ -f /etc/piaware.conf ]
         then
-            cat >/etc/piaware.conf <<EOF
-# This file configures piaware and related software.
-# You can edit it directly or use piaware-config from the command line
-# to view and change settings.
-#
-# If /boot/piaware-config.txt also exists, then settings present in
-# that file will override settings in this file.
-EOF
             chown root:$RUNAS /etc/piaware.conf
             chmod 0640 /etc/piaware.conf  # this can contain passwords
         fi
