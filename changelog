@@ -1,3 +1,9 @@
+piaware (3.0~flightfeeder.1) UNRELEASED; urgency=medium
+
+  * work in progress
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 18 Apr 2016 11:30:22 +0100
+
 piaware (3.0~flightfeeder) stable; urgency=medium
 
   * Early 3.0 release for FlightFeeder images.
