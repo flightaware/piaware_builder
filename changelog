@@ -1,6 +1,6 @@
-piaware (3.0~flightfeeder.1) UNRELEASED; urgency=medium
+piaware (3.0~flightfeeder.1) stable; urgency=medium
 
-  * work in progress
+  * Release for FlightFeeder 7.1 image.
 
  -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 18 Apr 2016 11:30:22 +0100
 
