@@ -27,6 +27,9 @@ override_dh_strip:
 	# attempting to strip it will damage the zipfile
 	dh_strip -X debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
 
+override_dh_installinit:
+	dh_installinit --no-restart-on-upgrade
+
 check_versions:
 	debian/check_versions
 
