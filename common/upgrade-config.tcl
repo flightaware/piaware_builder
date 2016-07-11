@@ -23,14 +23,22 @@ proc main {} {
 
 	set changed 0
 	foreach key [$oldconfig metadata all_settings] {
-		if {[$oldconfig exists $key]} {
-			if {![$newconfig exists $key]} {
-				$newconfig set_option $key [$oldconfig get $key]
-				puts stderr "Copied $key setting from [$oldconfig origin $key] to [$newconfig origin $key]"
-				set changed 1
-			} else {
-				puts stderr "Ignored $key setting in [$oldconfig origin $key] as it is already present in [$newconfig origin $key]"
-			}
+		if {![$newconfig metadata exists $key]} {
+			puts stderr "Ignored $key setting at [$oldconfig origin $key] as it has no corresponding setting in the new configuration schema"
+			continue
+		}
+
+		if {[$oldconfig get $key] eq [$newconfig get $key]} {
+			# old config matches new config, nothing to do
+			continue
+		}
+
+		if {[$newconfig origin $key] ne "defaults" && [$newconfig origin $key] ne ""} {
+			puts stderr "Ignored $key setting at [$oldconfig origin $key] as there is already a value set for it at [$newconfig origin $key]"
+		} else {
+			$newconfig set_option $key [$oldconfig get $key]
+			puts stderr "Copied $key setting from [$oldconfig origin $key] to [$newconfig origin $key]"
+			set changed 1
 		}
 	}
 
