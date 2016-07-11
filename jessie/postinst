@@ -54,6 +54,12 @@ EOF
             [ -f /root/.piaware ] && mv /root/.piaware /root/.piaware.old
             [ -f /etc/piaware ] && mv /etc/piaware /etc/piaware.old
         fi
+
+        # reload rsyslog configuration if we installed some new config
+        if dpkg --compare-versions "$2" lt "3.0"; then
+            echo "Reloading rsyslog configuration.." >&2
+            invoke-rc.d rsyslog force-reload || echo "Warning: rsyslog failed to reload"
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
