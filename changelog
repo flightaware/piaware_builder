@@ -1,3 +1,13 @@
+piaware (3.0.3) stable; urgency=medium
+
+  * Fix a case where piaware could hang while doing a TLS handshake with
+    adept if the network failed at the wrong time.
+  * Ensure we force updated config files to disk immediately, so that a
+    badly-timed crash is less likely to toast data. (If it's living on a
+    FAT filesystem, we can't guarantee that, but we can reduce the window)
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 01 Aug 2016 12:25:04 +0100
+
 piaware (3.0.2) stable; urgency=medium
 
   * Write a placeholder /tmp/piaware.out to direct users to the new log location

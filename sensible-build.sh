@@ -43,11 +43,11 @@ OUTDIR=$TOP/package-$dist
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v3.0.2 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git v3.0.3 $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git v3.0.2 $OUTDIR/dump1090
+clone_or_update https://github.com/flightaware/dump1090.git v3.0.3 $OUTDIR/dump1090
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.6 $OUTDIR/mlat-client
 
