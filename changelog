@@ -1,3 +1,9 @@
+piaware (3.0.4~dev) UNRELEASED; urgency=medium
+
+  * in development
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 16 Aug 2016 15:53:45 +0100
+
 piaware (3.0.3) stable; urgency=medium
 
   * Fix a case where piaware could hang while doing a TLS handshake with
