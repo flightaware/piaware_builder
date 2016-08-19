@@ -14,7 +14,7 @@ VENV=$(CURDIR)/debian/venv
 
 CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
 
-override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv
+override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware
 
 override_dh_auto_configure: check_versions configure_tcllauncher
 
