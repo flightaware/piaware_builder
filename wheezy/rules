@@ -50,7 +50,7 @@ clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd cx_freeze && $(VENV)/bin/python ./setup.py install
+	cd cx_Freeze-4.3.4 && $(VENV)/bin/python ./setup.py install
 
 build_mlat-client:
 	cd mlat-client && $(VENV)/bin/python setup.py install

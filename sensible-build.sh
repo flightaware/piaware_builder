@@ -52,13 +52,11 @@ clone_or_update https://github.com/flightaware/dump1090.git v3.0.3 $OUTDIR/dump1
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.6 $OUTDIR/mlat-client
 
 # get a copy of cxfreeze and patch it for building on Debian
-if [ ! -d $OUTDIR/cx_freeze ]
+if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
 then
-    CXFREEZEHASH=adb1d5716a84
-    echo "Retrieving cxfreeze at hash $CXFREEZEHASH"
-    wget -nv -O $OUTDIR/cx_freeze.zip https://bitbucket.org/anthony_tuininga/cx_freeze/get/$CXFREEZEHASH.zip
-    unzip -d $OUTDIR $OUTDIR/cx_freeze.zip
-    mv $OUTDIR/anthony_tuininga-cx_freeze-$CXFREEZEHASH $OUTDIR/cx_freeze
+    echo "Retrieving and patching cxfreeze"
+    wget -nv -O - 'https://pypi.python.org/packages/source/c/cx_Freeze/cx_Freeze-4.3.4.tar.gz#md5=5bd662af9aa36e5432e9144da51c6378' | tar -C $OUTDIR -zxf -
+    patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-link-fix.patch
 fi
 
 # copy our control files
