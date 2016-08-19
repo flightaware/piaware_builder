@@ -57,6 +57,7 @@ then
     echo "Retrieving and patching cxfreeze"
     wget -nv -O - 'https://pypi.python.org/packages/source/c/cx_Freeze/cx_Freeze-4.3.4.tar.gz#md5=5bd662af9aa36e5432e9144da51c6378' | tar -C $OUTDIR -zxf -
     patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-link-fix.patch
+    patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-python35-fix.patch
 fi
 
 # copy our control files

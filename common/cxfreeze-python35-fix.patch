@@ -1,0 +1,36 @@
+# HG changeset patch
+# User Julien Duponchelle <julien@duponchelle.info>
+# Date 1442238375 -7200
+# Branch python35-4.x
+# Node ID 15544b534ec17f98376541a4a70a81a2ab701e4e
+# Parent  79b9af284286f8af2ea8769a40c29e8e3964a82f
+Python 3.5 compatibility for cx_Freeze 4.x
+
+Fix #156
+
+diff --git a/cx_Freeze/finder.py b/cx_Freeze/finder.py
+--- a/cx_Freeze/finder.py
++++ b/cx_Freeze/finder.py
+@@ -189,12 +189,21 @@
+         self.IncludePackage("encodings")
+         if sys.version_info[0] >= 3:
+             self.IncludeModule("io")
+-        if sys.version_info[:2] >= (3, 3):
++        if sys.version_info[:2] >= (3, 3) and sys.version_info < (3, 5):
+             self.AddAlias("_frozen_importlib", "importlib._bootstrap")
+             self.IncludeModule("_frozen_importlib")
+             # importlib itself must not be frozen
+             del self._modules["importlib"]
+             del self._modules["importlib._bootstrap"]
++        if sys.version_info[:2] >= (3, 5):
++            self.AddAlias("_frozen_importlib", "importlib._bootstrap")
++            self.AddAlias("_frozen_importlib_external", "importlib._bootstrap_external")
++            self.IncludeModule("_frozen_importlib_external")
++            self.IncludeModule("_frozen_importlib")
++            # importlib itself must not be frozen
++            del self._modules["importlib"]
++            del self._modules["importlib._bootstrap"]
++            del self._modules["importlib._bootstrap_external"]
+         if self.copyDependentFiles:
+             self.IncludeModule("os")
+             self.IncludeModule("sys")
