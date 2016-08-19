@@ -28,10 +28,11 @@ package/debian/control:
 
 * build-essential
 * debhelper
-* tcl8.5-dev
+* tcl8.6-dev
 * autoconf
 * python3-dev
-* python-virtualenv
+* python3-venv
+* dh-systemd
 * libz-dev
 
 If you use pdebuild it will do this for you.
