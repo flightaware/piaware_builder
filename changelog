@@ -1,8 +1,18 @@
-piaware (3.0.4~dev) UNRELEASED; urgency=medium
+piaware (3.0.4) stable; urgency=medium
 
-  * in development
+  * Fix piaware-status process reporting
+  * When upgrading, try harder to recover from interrupted upgrades and
+    dependency problems
+  * Allow config files to have different EOL conventions when writing them out.
+  * Set /boot/piaware-config.txt to use CRLF EOL convention
+  * If piaware exits with an unrecoverable error (e.g. login failure), don't
+    restart it
+  * If the exec of a fork-and-exec fails, kill the child process abruptly
+    rather than letting tcl exit normally, to avoid interfering with any
+    inherited file descriptors. (Mostly affects non-Debian systems e.g. Arch)
+  * Patch cxfreeze to support building with Python 3.5
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 16 Aug 2016 15:53:45 +0100
+ -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 19 Aug 2016 14:00:48 +0100
 
 piaware (3.0.3) stable; urgency=medium
 
