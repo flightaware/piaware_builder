@@ -60,6 +60,12 @@ or
 
 etc.
 
+## Installing
+
+```
+$ sudo dpkg -i piaware_3.0.4_armhf.deb
+```
+
 ## Fixing problems
 
 If the build fails and you need to make some changes to fix it, you can
