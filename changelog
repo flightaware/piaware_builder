@@ -1,3 +1,9 @@
+piaware (3.1.0~dev) UNRELEASED; urgency=medium
+
+  * in development.
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Sat, 27 Aug 2016 21:41:01 +0100
+
 piaware (3.0.5) stable; urgency=medium
 
   * No-change rebuild for 3.0.5
