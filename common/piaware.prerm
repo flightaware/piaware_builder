@@ -37,10 +37,13 @@ case "$1" in
         if $safe_to_stop && [ -x "/etc/init.d/piaware" ]; then
             invoke-rc.d piaware stop || true
         fi
+
+        ;;
+
     *)
         echo "prerm called with unknown argument \`$1'" >&2
         exit 1
-    ;;
+        ;;
 esac
 
 
