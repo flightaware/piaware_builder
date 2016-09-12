@@ -45,6 +45,37 @@ EOF
         [ -f /etc/piaware ] && mv /etc/piaware /etc/piaware.old
     fi
 }
+
+update_mlat_config() {
+    old_mlat_config=$(piaware-config -show mlat-results-format)
+    new_mlat_config=""
+
+    for part in $old_mlat_config
+    do
+        case "$part" in
+            *adsbexchange*)
+                # drop this
+                echo "Removed '$part' from mlat results config" >&2
+                ;;
+            *)
+                # keep this
+                if [ -z "$new_mlat_config" ]
+                then
+                    new_mlat_config="$part"
+                else
+                    new_mlat_config="$new_mlat_config $part"
+                fi
+                ;;
+        esac
+    done
+
+    if [ "$old_mlat_config" != "$new_mlat_config" ]
+    then
+        echo "Updating mlat results config to: $new_mlat_config" >&2
+        piaware-config mlat-results-format "$new_mlat_config"
+    fi
+}
+
 case "$1" in
     configure)
         if ! getent passwd "$RUNAS" >/dev/null
@@ -73,6 +104,11 @@ case "$1" in
             upgrade_piaware2_config
         fi
 
+        if test -n "$2" && dpkg --compare-versions "$2" lt "3.1"
+        then
+            # it's an upgrade from pre-3.1
+            # strip out mlat-forwarding configurations
+            update_mlat_config
         fi
 
         echo "Reloading rsyslog configuration.." >&2
