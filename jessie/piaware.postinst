@@ -20,6 +20,31 @@ set -e
 NAME=piaware
 RUNAS=piaware
 
+upgrade_piaware2_config() {
+    if [ ! -f /boot/piaware-config.txt -a -d /boot ]
+    then
+        # write an initial piaware-config.txt so it can be updated in a moment.
+        cat >/boot/piaware-config.txt <<EOF || true
+# This file was created automatically during an upgrade from PiAware $2
+# Additional piaware configuration settings may be added below.
+
+EOF
+    fi
+
+    if [ -f /root/.piaware -o -f /etc/piaware ]
+    then
+        # upgrade legacy config files
+        /usr/share/piaware/upgrade-config.tcl || echo >&2 <<EOF
+Automatic config file upgrade failed. You may need to manually reconfigure
+piaware using piaware-config or by editing /etc/piaware.conf or
+/boot/piaware-config.txt. Your old config files are preserved as
+/root/.piaware.old and /etc/piaware.old
+EOF
+
+        [ -f /root/.piaware ] && mv /root/.piaware /root/.piaware.old
+        [ -f /etc/piaware ] && mv /etc/piaware /etc/piaware.old
+    fi
+}
 case "$1" in
     configure)
         if ! getent passwd "$RUNAS" >/dev/null
@@ -44,29 +69,10 @@ case "$1" in
         if test -n "$2" && dpkg --compare-versions "$2" lt "3.0"
         then
             # it's an upgrade from 2.x
-            if [ ! -f /boot/piaware-config.txt -a -d /boot ]
-            then
-                # write an initial piaware-config.txt so it can be updated in a moment.
-                cat >/boot/piaware-config.txt <<EOF || true
-# This file was created automatically during an upgrade from PiAware $2
-# Additional piaware configuration settings may be added below.
+            # convert the old-format config files
+            upgrade_piaware2_config
+        fi
 
-EOF
-            fi
-
-            if [ -f /root/.piaware -o -f /etc/piaware ]
-            then
-                # upgrade legacy config files
-                /usr/share/piaware/upgrade-config.tcl || echo >&2 <<EOF
-Automatic config file upgrade failed. You may need to manually reconfigure
-piaware using piaware-config or by editing /etc/piaware.conf or
-/boot/piaware-config.txt. Your old config files are preserved as
-/root/.piaware.old and /etc/piaware.old
-EOF
-
-                [ -f /root/.piaware ] && mv /root/.piaware /root/.piaware.old
-                [ -f /etc/piaware ] && mv /etc/piaware /etc/piaware.old
-            fi
         fi
 
         echo "Reloading rsyslog configuration.." >&2
