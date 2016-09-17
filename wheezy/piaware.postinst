@@ -102,6 +102,19 @@ case "$1" in
             # it's an upgrade from 2.x
             # convert the old-format config files
             upgrade_piaware2_config
+
+            # put something in /tmp/piaware.out to alert the user
+            if [ -e /tmp/piaware.out ]
+            then
+                cat <<EOF >>/tmp/piaware.out
+===============================================================
+
+ PiAware 3 writes logging information to /var/log/piaware.log
+ Please see that file for future PiAware logging.
+
+===============================================================
+EOF
+            fi
         fi
 
         if test -n "$2" && dpkg --compare-versions "$2" lt "3.1"
