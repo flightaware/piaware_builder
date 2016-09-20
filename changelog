@@ -1,6 +1,31 @@
 piaware (3.1.0~dev) UNRELEASED; urgency=medium
 
   * in development.
+  * Create a pidfile when using systemd to match what the init script does
+  * Open logfiles earlier, so the log gets the pidfile-created message
+  * Restart piaware automatically during non-piaware-mediated package upgrades
+  * Don't leak FDs when running subprocesses if fork or one of the redirects fails
+  * Support quoted config values for values that need to contain special characters
+  * Avoid some tcl 8.6.2 memory leaks
+  * Allow faup1090 to report data that does not include a hexid
+  * Fix support for data feeds from ports other than 30005
+  * Improve piaware-status output to know about the receiver/port configuration
+  * Update faup1090 for reporting/decoding changes:
+    * Overhaul/cleanup the Mode S decoder
+    * Prefer ES data over non-ES Mode S data when both are available
+    * Improve the reliability of air/ground detection
+    * Increase report frequency for surface targets, or things that look like they
+      might be surface targets; report air/ground changes immediately
+    * Report datalink capabilities, ES target status, ES operational status,
+      ACAS RA reports when they change
+    * Report magnetic heading, IAS, TAS, GNSS altitude, ident source, category
+      where available
+    * Report data involving non-ICAO addresses (e.g. TIS-B track file data)
+    * Report the address qualifier for things that are not DF17 ADS-B
+  * On upgrade, remove mlat result configs that forward to third parties
+    as FlightAware's policy for acceptable use of that data has changed
+  * On upgrade from PiAware 2, put a note in /tmp/piaware.out about the change in
+    logfile location
 
  -- Oliver Jowett <oliver@mutability.co.uk>  Sat, 27 Aug 2016 21:41:01 +0100
 
