@@ -1,6 +1,16 @@
 piaware (3.2.0~dev) UNRELEASED; urgency=medium
 
-  * In development
+  * New configuration options:
+    * mlat-results-anon: if set to "no", no anonymous mlat results are
+      generated (those results are just dropped entirely)
+    * modeac: if set to "yes", mode A/C decoding is enabled and port 30005
+      will include mode A/C by default
+    * force-macaddress: can be used to set the MAC address used for site
+      selection; this is an experimental feature, no support is available,
+      it may go away in the future
+  * More tweaks to MAC address detection to try to be more consistent about
+    which address is picked with unusual setups
+  * faup1090 tweaks and bugfixes
 
  -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 11 Oct 2016 12:35:17 +0100
 
