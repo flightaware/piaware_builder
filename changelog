@@ -1,4 +1,4 @@
-piaware (3.2.0~dev) UNRELEASED; urgency=medium
+piaware (3.2.0) stable; urgency=medium
 
   * New configuration options:
     * mlat-results-anon: if set to "no", no anonymous mlat results are
@@ -12,7 +12,7 @@ piaware (3.2.0~dev) UNRELEASED; urgency=medium
     which address is picked with unusual setups
   * faup1090 tweaks and bugfixes
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 11 Oct 2016 12:35:17 +0100
+ -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 25 Oct 2016 23:41:43 +0100
 
 piaware (3.1.0) stable; urgency=medium
 
