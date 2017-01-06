@@ -1,5 +1,5 @@
 /var/log/piaware.log {
-  create piaware root 0644
+  create 0644 piaware root
   weekly
   rotate 4
   missingok
