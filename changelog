@@ -1,4 +1,4 @@
-piaware (3.3.0~dev) UNRELEASED; urgency=medium
+piaware (3.3.0) stable; urgency=medium
 
   * Report piaware image type correctly for package installs where there
     is more than one package matching 'piaware*'; this fixes the available
@@ -17,8 +17,9 @@ piaware (3.3.0~dev) UNRELEASED; urgency=medium
     address (server-side support to follow)
   * Experimental support for Mode A/C multilateration (server-side support to
     follow)
+  * Update to faup1090 from dump1090-fa 3.3.0, fa-mlat-client 0.2.8
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Wed, 02 Nov 2016 23:26:03 +0000
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 16 Jan 2017 14:13:16 +0000
 
 piaware (3.2.0) stable; urgency=medium
 
