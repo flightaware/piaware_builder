@@ -4,7 +4,7 @@ piaware (3.4.0) stable; urgency=medium
   * Restart piaware after a remotely-initiated all-packages upgrade.
   * Run apt-get clean after upgrade to keep the apt cache size down.
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 30 Jan 2017 19:56:52 +0000
+ -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 09 Feb 2017 17:40:44 +0000
 
 piaware (3.3.0) stable; urgency=medium
 
