@@ -1,6 +1,8 @@
-piaware (3.4.0~dev) UNRELEASED; urgency=medium
+piaware (3.4.0) stable; urgency=medium
 
-  * In development.
+  * Add bladeRF configuration support.
+  * Restart piaware after a remotely-initiated all-packages upgrade.
+  * Run apt-get clean after upgrade to keep the apt cache size down.
 
  -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 30 Jan 2017 19:56:52 +0000
 
