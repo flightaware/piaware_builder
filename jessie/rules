@@ -39,7 +39,7 @@ configure_tcllauncher:
 	cd tcllauncher && autoconf -f && ./configure --with-tcl=/usr/lib/tcl8.6
 
 build_dump1090:
-	make -C dump1090 DUMP1090_VERSION="piaware-$(CHANGELOG_VERSION)" faup1090
+	make -C dump1090 RTLSDR=no BLADERF=no DUMP1090_VERSION="piaware-$(CHANGELOG_VERSION)" faup1090
 
 install_dump1090:
 	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
