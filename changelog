@@ -1,8 +1,9 @@
-piaware (3.5.0~dev) UNRELEASED; urgency=medium
+piaware (3.5.0) stable; urgency=medium
 
-  * In development.
+  * Minor tweaks to feeder ID reporting
+  * Update to faup1090 from dump1090-fa 3.5.0, fa-mlat-client 0.2.9
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Wed, 22 Mar 2017 11:32:59 +0000
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 03 Apr 2017 17:57:49 +0100
 
 piaware (3.4.0) stable; urgency=medium
 
