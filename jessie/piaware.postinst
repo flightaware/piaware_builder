@@ -53,7 +53,7 @@ update_mlat_config() {
     for part in $old_mlat_config
     do
         case "$part" in
-            *adsbexchange*)
+            *adsbexchange*|*167.114.60.74*)
                 # drop this
                 echo "Removed '$part' from mlat results config" >&2
                 ;;
@@ -117,9 +117,9 @@ EOF
             fi
         fi
 
-        if test -n "$2" && dpkg --compare-versions "$2" lt "3.1"
+        if test -n "$2" && dpkg --compare-versions "$2" lt "3.5.1"
         then
-            # it's an upgrade from pre-3.1
+            # it's an upgrade from pre-3.5.1
             # strip out mlat-forwarding configurations
             update_mlat_config
         fi
