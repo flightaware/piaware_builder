@@ -53,7 +53,7 @@ update_mlat_config() {
     for part in $old_mlat_config
     do
         case "$part" in
-            *adsbexchange*)
+            *adsbexchange*|*167.114.60.74*)
                 # drop this
                 echo "Removed '$part' from mlat results config" >&2
                 ;;
