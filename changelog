@@ -1,8 +1,20 @@
-piaware (3.5.1) UNRELEASED; urgency=medium
+piaware (3.5.1) stable; urgency=medium
 
-  * in development
+  * Change log timestamp format to ISO8601
+  * Run dpkg --configure -a before apt-get update, in case the local
+    package state is hosed
+  * Validate MAC address and UUID format when changing configuration
+    via piaware-config
+  * Tell adept when we are using a UUID from the local cache dir, but
+    it is not writable
+  * Update list of fallback adept host IPs
+  * Randomize the order of fallback host IPs each time to load-balance
+    between them
+  * On upgrade, remove mlat result configs that forward to third parties
+    (previous check extended to catch some additional cases)
+  * Update to faup1090 from dump1090-fa 3.5.1
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 31 Jul 2017 14:49:17 +0100
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 31 Jul 2017 18:10:16 +0100
 
 piaware (3.5.0) stable; urgency=medium
 
