@@ -1,3 +1,16 @@
+piaware (3.5.3~dev) UNRELEASED; urgency=medium
+
+  * in development
+  * Skip 3.5.2 to realign with piaware-support versioning
+  * Add mlat data license text
+  * Avoid leaking FDs in more error cases
+  * Report assigned feeder ID in piaware-status
+  * Config changes to support FlightFeeders
+  * Update to faup1090 from dump1090-fa 3.5.3
+  * Update to mlat-client 0.2.10
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 02 Nov 2017 13:24:49 +0000
+
 piaware (3.5.1) stable; urgency=medium
 
   * Change log timestamp format to ISO8601
