@@ -47,9 +47,9 @@ clone_or_update https://github.com/flightaware/piaware.git origin/dev $OUTDIR/pi
 
 clone_or_update https://github.com/flightaware/tcllauncher.git 460debe4d350f06f9c7e54e5400992cac4f1d328 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git v3.5.1 $OUTDIR/dump1090
+clone_or_update https://github.com/flightaware/dump1090.git v3.5.3 $OUTDIR/dump1090
 
-clone_or_update https://github.com/mutability/mlat-client.git v0.2.9 $OUTDIR/mlat-client
+clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
 
 # get a copy of cxfreeze and patch it for building on Debian
 if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
