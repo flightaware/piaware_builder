@@ -25,7 +25,7 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <wheezy|jessie>" >&2
+  echo "syntax: $0 <wheezy|jessie|stretch>" >&2
   exit 1
 fi
 
@@ -33,7 +33,7 @@ case $1 in
   wheezy|jessie) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <wheezy|jessie>" >&2
+    echo "syntax: $0 <wheezy|jessie|stretch>" >&2
     exit 1
     ;;
 esac
@@ -79,6 +79,8 @@ case $dist in
     dch --changelog $OUTDIR/debian/changelog --bpo --distribution wheezy-backports "Automated backport build via piaware_builder"
     ;;
   jessie)
+    ;;
+  stretch)
     ;;
   *)
     echo "You should fix the script so it knows about a distribution of $dist" >&2
