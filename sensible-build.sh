@@ -30,7 +30,7 @@ then
 fi
 
 case $1 in
-  wheezy|jessie) dist=$1 ;;
+  wheezy|jessie|stretch) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
     echo "syntax: $0 <wheezy|jessie|stretch>" >&2
@@ -76,9 +76,11 @@ cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.service
 case $dist in
   wheezy)
     echo "Updating changelog for wheezy backport build"
-    dch --changelog $OUTDIR/debian/changelog --bpo --distribution wheezy-backports "Automated backport build via piaware_builder"
+    dch --changelog $OUTDIR/debian/changelog --local ~bpo7+ --distribution wheezy-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
   jessie)
+    echo "Updating changelog for jessie backport build"
+    dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
   stretch)
     ;;
