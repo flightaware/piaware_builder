@@ -52,13 +52,25 @@ clone_or_update https://github.com/flightaware/dump1090.git v3.6.0 $OUTDIR/dump1
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
 
 # get a copy of cxfreeze and patch it for building on Debian
-if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
-then
-    echo "Retrieving and patching cxfreeze"
-    wget -nv -O - 'https://pypi.python.org/packages/source/c/cx_Freeze/cx_Freeze-4.3.4.tar.gz#md5=5bd662af9aa36e5432e9144da51c6378' | tar -C $OUTDIR -zxf -
-    patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-link-fix.patch
-    patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-python35-fix.patch
-fi
+case $dist in
+    wheezy|jessie)
+        if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
+        then
+            echo "Retrieving and patching cxfreeze"
+            wget -nv -O - 'https://pypi.python.org/packages/source/c/cx_Freeze/cx_Freeze-4.3.4.tar.gz#md5=5bd662af9aa36e5432e9144da51c6378' | tar -C $OUTDIR -zxf -
+            patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-link-fix.patch
+            patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-python35-fix.patch
+        fi
+        ;;
+
+    stretch)
+        if [ ! -d $OUTDIR/cx_Freeze-5.1.1 ]
+        then
+            echo "Retrieving cxfreeze"
+            wget -nv -O - 'https://files.pythonhosted.org/packages/5f/16/eab51d6571dfec2554248cb027c51babd04d97f594ab6359e0707361297d/cx_Freeze-5.1.1.tar.gz' | tar -C $OUTDIR -zxf -
+        fi
+        ;;
+esac
 
 # copy our control files
 rm -fr $OUTDIR/debian

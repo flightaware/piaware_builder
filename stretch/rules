@@ -52,13 +52,13 @@ clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd cx_Freeze-4.3.4 && $(VENV)/bin/python ./setup.py install
+	cd cx_Freeze-5.1.1 && $(VENV)/bin/python ./setup.py install
 
 build_mlat-client:
 	cd mlat-client && $(VENV)/bin/python setup.py install
 
 install_mlat-client:
-	$(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers --include-modules=imp $(VENV)/bin/fa-mlat-client
+	$(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers $(VENV)/bin/fa-mlat-client
 	chmod +x $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
 
 clean_mlat-client:
