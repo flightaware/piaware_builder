@@ -134,8 +134,8 @@ EOF
             chmod 0644 /etc/piaware/pirehose.cert.pem
         fi
 
-        echo "Reloading rsyslog configuration.." >&2
-        invoke-rc.d rsyslog force-reload || echo "Warning: rsyslog failed to reload"
+        echo "Restarting rsyslogd.." >&2
+        invoke-rc.d rsyslog restart || echo "Warning: rsyslog failed to restart"
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
