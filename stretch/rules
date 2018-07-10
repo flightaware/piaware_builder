@@ -29,8 +29,13 @@ override_dh_strip:
 override_dh_installinit:
 	dh_installinit --no-restart-on-upgrade
 
+override_dh_systemd_enable:
+	dh_systemd_enable --name=piaware piaware.service
+	dh_systemd_enable --name=generate-pirehose-cert generate-pirehose-cert.service
+
 override_dh_systemd_start:
-	dh_systemd_start --no-restart-on-upgrade
+	dh_systemd_start --no-restart-on-upgrade --name=piaware piaware.service
+	dh_systemd_start --name=generate-pirehose-cert generate-pirehose-cert.service
 
 check_versions:
 	debian/check_versions

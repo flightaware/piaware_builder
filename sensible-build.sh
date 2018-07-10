@@ -83,7 +83,8 @@ cp -r \
 
 # copy over the init.d / systemd files from the piaware source
 cp $OUTDIR/piaware/scripts/piaware-rc-script $OUTDIR/debian/piaware.init
-cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.service
+cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.piaware.service
+cp $OUTDIR/piaware/scripts/generate-pirehose-cert.service $OUTDIR/debian/piaware.generate-pirehose-cert.service
 
 case $dist in
   wheezy)
