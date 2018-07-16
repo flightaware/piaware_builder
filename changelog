@@ -1,8 +1,15 @@
-piaware (3.6.1~dev) UNRELEASED; urgency=medium
+piaware (3.6.1) stable; urgency=medium
 
-  * in development
+  * Update to faup1090 from dump1090-fa 3.6.1
+  * Support for building on Stretch
+  * Extra paranoia when parsing messages from gpsd
+  * Improve detection of clock skew
+  * Run pirehose certificate generation only when needed
+  * Add config support for "wireless-country" option
+  * Fix mlat backfeed detection to handle the extended data format
+  * Handle errors while writing the piaware status file gracefully
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 28 Jun 2018 13:35:24 -0500
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 16 Jul 2018 15:02:30 +0100
 
 piaware (3.6.0) stable; urgency=medium
 
