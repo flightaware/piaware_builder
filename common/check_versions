@@ -11,7 +11,7 @@ fi
 
 PIAWARE_VERSION=$(echo 'source piaware/programs/piaware/config.tcl; puts [set piawareVersionFull]' | $TCLSH)
 CHANGELOG_VERSION=$(dpkg-parsechangelog | sed -n 's/^Version: //p')
-STRIPPED_CHANGELOG_VERSION=$(echo $CHANGELOG_VERSION | sed 's/~bpo.*$//')
+STRIPPED_CHANGELOG_VERSION=$(echo $CHANGELOG_VERSION | sed -e 's/~bpo.*$//' -e 's/~ubuntu.*$//')
 if [ "$PIAWARE_VERSION" != "$STRIPPED_CHANGELOG_VERSION" ]
 then
     cat >&2 <<EOF

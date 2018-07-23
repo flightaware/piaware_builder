@@ -25,15 +25,15 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <wheezy|jessie|stretch>" >&2
+  echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
   exit 1
 fi
 
 case $1 in
-  wheezy|jessie|stretch) dist=$1 ;;
+  wheezy|jessie|stretch|xenial|bionic) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <wheezy|jessie|stretch>" >&2
+    echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
     exit 1
     ;;
 esac
@@ -63,7 +63,7 @@ case $dist in
         fi
         ;;
 
-    stretch)
+    stretch|xenial|bionic)
         if [ ! -d $OUTDIR/cx_Freeze-5.1.1 ]
         then
             echo "Retrieving cxfreeze"
@@ -96,6 +96,14 @@ case $dist in
     dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
   stretch)
+    ;;
+  xenial)
+    echo "Updating changelog for xenial (16.04) build"
+    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1604+ --distribution xenial --force-distribution "Automated build via piaware_builder"
+    ;;
+  bionic)
+    echo "Updating changelog for bionic (18.04) build"
+    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1804+ --distribution bionic --force-distribution "Automated build via piaware_builder"
     ;;
   *)
     echo "You should fix the script so it knows about a distribution of $dist" >&2
