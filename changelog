@@ -1,3 +1,9 @@
+piaware (3.6.2~dev) UNRELEASED; urgency=medium
+
+  * in development
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 23 Jul 2018 15:20:57 +0100
+
 piaware (3.6.1) stable; urgency=medium
 
   * Update to faup1090 from dump1090-fa 3.6.1
