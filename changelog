@@ -1,8 +1,10 @@
-piaware (3.6.2~dev) UNRELEASED; urgency=medium
+piaware (3.6.2) stable; urgency=medium
 
-  * in development
+  * Experimental support for building on Ubuntu 16.04 / 18.04
+  * Update to tcllauncher 1.8
+  * Update to faup1090 from dump1090-fa 3.6.2
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Mon, 23 Jul 2018 15:20:57 +0100
+ -- Oliver Jowett <oliver@mutability.co.uk>  Fri, 27 Jul 2018 18:30:37 +0100
 
 piaware (3.6.1) stable; urgency=medium
 
