@@ -38,8 +38,12 @@ case $1 in
     ;;
 esac
 
-
-OUTDIR=$TOP/package-$dist
+if [ -z "$2" ]
+then
+  OUTDIR=$TOP/package-$dist
+else
+  OUTDIR="$2"
+fi
 
 mkdir -p $OUTDIR
 
