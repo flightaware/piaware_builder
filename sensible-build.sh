@@ -47,7 +47,7 @@ fi
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v3.6.2 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git origin/dev $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
