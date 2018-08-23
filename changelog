@@ -1,3 +1,9 @@
+piaware (3.6.3~dev) UNRELEASED; urgency=medium
+
+  * in development
+
+ -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 23 Aug 2018 18:24:27 +0100
+
 piaware (3.6.2) stable; urgency=medium
 
   * Experimental support for building on Ubuntu 16.04 / 18.04
