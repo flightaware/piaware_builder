@@ -24,11 +24,7 @@ node(label: 'raspberrypi') {
             sh "rm -fr ${results}"
             sh "mkdir -p ${results}"
             dir(pkgdir) {
-                if (dist == "wheezy") {
-                    sh "DIST=${dist} pdebuild --debbuildopts -b --buildresult ${WORKSPACE}/${results}"
-                } else {
-                    sh "DIST=${dist} pdebuild --use-pdebuild-internal --debbuildopts -b --buildresult ${WORKSPACE}/${results}"
-                }
+                sh "DIST=${dist} pdebuild --use-pdebuild-internal --debbuildopts -b --buildresult ${WORKSPACE}/${results}"
             }
             archiveArtifacts artifacts: "${results}/*.deb", fingerprint: true
         }
