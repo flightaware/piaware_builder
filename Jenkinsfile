@@ -12,7 +12,7 @@ node(label: 'raspberrypi') {
 
     for (int i = 0; i < dists.size(); ++i) {
         def dist = dists[i]
-        def pkgdir = "package-${dist}"
+        def pkgdir = "pkg-${dist}"
         def results = "results-${dist}"
 
         stage("Prepare source for ${dist}") {
