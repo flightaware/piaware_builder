@@ -10,7 +10,7 @@ include /usr/share/dpkg/buildflags.mk
 PYTHON3=/usr/bin/$(shell py3versions -d)
 PYTHON3VER=$(shell py3versions -vd)
 
-VENV=$(CURDIR)/debian/venv
+VENV=$(CURDIR)/v
 
 CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
 
