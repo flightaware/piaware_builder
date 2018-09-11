@@ -50,11 +50,11 @@ fi
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git origin/dev $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git v3.6.3 $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git v3.6.2 $OUTDIR/dump1090
+clone_or_update https://github.com/flightaware/dump1090.git v3.6.3 $OUTDIR/dump1090
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
 

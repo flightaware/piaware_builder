@@ -1,8 +1,12 @@
-piaware (3.6.3~dev) UNRELEASED; urgency=medium
+piaware (3.6.3) stable; urgency=medium
 
-  * in development
+  * Avoid rewriting the cached receiver location frequently when using a
+    GPS location source that has some position jitter
+  * Update to faup1090 from dump1090-fa 3.6.3
+  * Use useradd, not adduser, in postinst to avoid an extra dependency
+  * Build tweaks to support build automation
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 23 Aug 2018 18:24:27 +0100
+ -- Oliver Jowett <oliver@mutability.co.uk>  Tue, 11 Sep 2018 14:54:40 +0100
 
 piaware (3.6.2) stable; urgency=medium
 
