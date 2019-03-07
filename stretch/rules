@@ -13,13 +13,13 @@ VENV=$(CURDIR)/debian/venv
 
 CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
 
-override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware
+override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware clean_dump978
 
 override_dh_auto_configure: check_versions configure_tcllauncher
 
-override_dh_auto_build: build_tcllauncher build_dump1090 setup_venv build_cxfreeze build_mlat-client
+override_dh_auto_build: build_tcllauncher build_dump1090 setup_venv build_cxfreeze build_mlat-client build_dump978
 
-override_dh_auto_install: install_tcllauncher install_dump1090 install_mlat-client install_piaware
+override_dh_auto_install: install_tcllauncher install_dump1090 install_mlat-client install_piaware install_dump978
 
 override_dh_strip:
 	# cxfreeze produces a launcher executable with a zipfile appended
@@ -49,6 +49,13 @@ build_dump1090:
 install_dump1090:
 	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump1090/faup1090
+
+build_dump978:
+	make -C dump978
+
+install_dump978:
+	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
+	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
 
 setup_venv:
 	pyvenv $(VENV) --without-pip
