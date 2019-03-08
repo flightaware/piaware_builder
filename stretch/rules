@@ -51,7 +51,7 @@ install_dump1090:
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump1090/faup1090
 
 build_dump978:
-	make -C dump978
+	make -C dump978 VERSION=$(DEB_VERSION)
 
 install_dump978:
 	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
