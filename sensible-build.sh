@@ -58,7 +58,7 @@ clone_or_update https://github.com/flightaware/dump1090.git origin/dev $OUTDIR/d
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
 
-clone_or_update https://github.com/flightaware/dump978.git origin/v2dev $OUTDIR/dump978
+clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/dump978
 
 # get a copy of cxfreeze and patch it for building on Debian
 case $dist in
