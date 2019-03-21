@@ -1,6 +1,9 @@
-piaware (3.7.0~dev) UNRELEASED; urgency=medium
+piaware (3.7.0) UNRELEASED; urgency=medium
 
-  * In development
+  * Support for 978MHz UAT ADS-B via dump978-fa
+  * Add a config option 'use-gpsd' to allow disabling the use of
+    gpsd location info.
+  * Update to faup1090 from dump1090-fa 3.7.0
 
  -- Eric Tran <eric1tran@gmail.com>  Thu, 07 Mar 2019 10:54:00 +0000
 
