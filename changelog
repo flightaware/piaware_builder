@@ -1,3 +1,9 @@
+piaware (3.7.0.1) stable; urgency=medium
+
+  * Fix MLAT connect parameters
+
+ -- Eric Tran <eric.tran@flightaware.com>  Wed, 03 Apr 2019 11:06:00 -6000
+
 piaware (3.7.0) stable; urgency=medium
 
   * Support for 978MHz UAT ADS-B via dump978-fa
