@@ -1,8 +1,10 @@
-piaware (3.7.1~dev) UNRELEASED; urgency=medium
+piaware (3.7.1) stable; urgency=medium
 
-  * in development
+  * Fix gpsd bug
+  * Add Mode S/UAT program status in status.json
+  * Add support for separate Mode S and UAT radio indicators
 
- -- Eric Tran <eric.tran@flightaware.com>  Mon, 15 Apr 2019 12:02:00 -6000
+ -- Eric Tran <eric.tran@flightaware.com>  Fri, 03 May 2019 01:43:00 -6000
 
 piaware (3.7.0.1) stable; urgency=medium
 
