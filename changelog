@@ -1,3 +1,9 @@
+piaware (3.7.2~dev) UNRELEASED; urgency=medium
+
+  * in development
+
+ -- Eric Tran <eric.tran@flightaware.com>  Thu, 01 Aug 2019 09:30:00 -6000
+
 piaware (3.7.1) stable; urgency=medium
 
   * Fix gpsd bug
