@@ -1,5 +1,5 @@
 node(label: 'raspberrypi') {
-    def dists = ["stretch", "jessie", "wheezy"]
+    def dists = ["stretch", "jessie"]
     def srcdir = "${WORKSPACE}/src"
 
     stage('Checkout') {
