@@ -1,4 +1,13 @@
 node(label: 'raspberrypi') {
+    properties([
+        pipelineTriggers([
+            upstream(threshold: 'SUCCESS',
+                     upstreamProjects: "tcltls/${env.BRANCH_NAME}")
+        ]),
+        disableConcurrentBuilds(),
+        durabilityHint(hint: 'PERFORMANCE_OPTIMIZED')
+    ])
+
     def dists = ["stretch", "jessie"]
     def srcdir = "${WORKSPACE}/src"
 
