@@ -1,8 +1,14 @@
-piaware (3.7.2~dev) UNRELEASED; urgency=medium
+piaware (3.7.2) stable; urgency=medium
 
-  * in development
+  * SkyAware renaming
+  * Relax itcl package requirement
+  * Fix misleading 'Couldn't open socket' piaware-status error
+  * Make piaware-status only report on enabled receiver types
+  * Remove obsolete piaware-config "-status" option
+  * Add Stratux dongle support
+  * Separate receiver and uat-receiver-type config types
 
- -- Eric Tran <eric.tran@flightaware.com>  Thu, 01 Aug 2019 09:30:00 -6000
+ -- Eric Tran <eric.tran@flightaware.com>  Mon, 09 Sep 2019 01:53:00 -6000
 
 piaware (3.7.1) stable; urgency=medium
 
