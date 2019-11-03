@@ -28,15 +28,15 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
+  echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic|buster>" >&2
   exit 1
 fi
 
 case $1 in
-  wheezy|jessie|stretch|xenial|bionic) dist=$1 ;;
+  wheezy|jessie|stretch|xenial|bionic|buster) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
+    echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic|buster>" >&2
     exit 1
     ;;
 esac
@@ -79,6 +79,13 @@ case $dist in
             wget -nv -O - 'https://files.pythonhosted.org/packages/5f/16/eab51d6571dfec2554248cb027c51babd04d97f594ab6359e0707361297d/cx_Freeze-5.1.1.tar.gz' | tar -C $OUTDIR -zxf -
         fi
         ;;
+    buster)
+        if [ ! -d $OUTDIR/cx_Freeze-6.0 ]
+        then
+            echo "Retrieving cxfreeze"
+            wget -nv -O - 'https://files.pythonhosted.org/packages/14/74/a76c12e4e357c79999191d5db259e66b46c57708515395c023d38e6bbbd7/cx_Freeze-6.0.tar.gz' | tar -C $OUTDIR -zxf -
+        fi
+        ;;
 esac
 
 # copy our control files
@@ -104,7 +111,7 @@ case $dist in
     echo "Updating changelog for jessie backport build"
     dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
-  stretch)
+  stretch|buster)
     ;;
   xenial)
     echo "Updating changelog for xenial (16.04) build"
