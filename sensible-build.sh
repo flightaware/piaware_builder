@@ -28,15 +28,15 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
+  echo "syntax: $0 <wheezy|jessie|stretch|buster|xenial|bionic>" >&2
   exit 1
 fi
 
 case $1 in
-  wheezy|jessie|stretch|xenial|bionic) dist=$1 ;;
+  wheezy|jessie|stretch|buster|xenial|bionic) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <wheezy|jessie|stretch|xenial|bionic>" >&2
+    echo "syntax: $0 <wheezy|jessie|stretch|buster|xenial|bionic>" >&2
     exit 1
     ;;
 esac
@@ -50,15 +50,15 @@ fi
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v3.7.2 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git dev $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git v3.7.2 $OUTDIR/dump1090
+clone_or_update https://github.com/flightaware/dump1090.git dev $OUTDIR/dump1090
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
 
-clone_or_update https://github.com/flightaware/dump978.git v3.7.2 $OUTDIR/dump978
+clone_or_update https://github.com/flightaware/dump978.git dev $OUTDIR/dump978
 
 # get a copy of cxfreeze and patch it for building on Debian
 case $dist in
@@ -77,6 +77,14 @@ case $dist in
         then
             echo "Retrieving cxfreeze"
             wget -nv -O - 'https://files.pythonhosted.org/packages/5f/16/eab51d6571dfec2554248cb027c51babd04d97f594ab6359e0707361297d/cx_Freeze-5.1.1.tar.gz' | tar -C $OUTDIR -zxf -
+        fi
+        ;;
+
+    buster)
+        if [ ! -d $OUTDIR/cx_Freeze-6.0 ]
+        then
+            echo "Retrieving cxfreeze"
+            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.0.tar.gz' | tar -C $OUTDIR -zxf -
         fi
         ;;
 esac
@@ -105,6 +113,8 @@ case $dist in
     dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
   stretch)
+    echo "Updating changelog for stretch backport build"
+    dch --changelog $OUTDIR/debian/changelog --local ~bpo9+ --distribution stretch-backports --force-distribution "Automated backport build via piaware_builder"
     ;;
   xenial)
     echo "Updating changelog for xenial (16.04) build"
