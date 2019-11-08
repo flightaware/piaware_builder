@@ -124,6 +124,8 @@ case $dist in
     echo "Updating changelog for bionic (18.04) build"
     dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1804+ --distribution bionic --force-distribution "Automated build via piaware_builder"
     ;;
+  buster)
+    ;;
   *)
     echo "You should fix the script so it knows about a distribution of $dist" >&2
     ;;
