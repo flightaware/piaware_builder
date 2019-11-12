@@ -76,6 +76,18 @@ update_mlat_config() {
     fi
 }
 
+remove_user_and_password() {
+    for f in /boot/piaware-config.txt /etc/piaware.conf
+    do
+        if [ -e $f ]
+        then
+            sed -e 's@^\s*flightaware-user\s+@#flightaware-user @g' \
+                -e 's@^\s*flightaware-password\s+.*$@#flightware-password [removed on upgrade]@g' <$f >$f.new
+            mv $f.new $f
+        fi
+    done
+}
+
 case "$1" in
     configure)
         if ! getent passwd "$RUNAS" >/dev/null
@@ -123,6 +135,14 @@ EOF
             # strip out mlat-forwarding configurations
             update_mlat_config
         fi
+
+        if dpkg --compare-versions "$2" lt-nl "3.8.0"
+        then
+            # it's an upgrade from pre-3.8.0
+            # strip out flightaware-user / flightaware-password
+            remove_user_and_password
+        fi
+        ;;
 
         echo "Reloading rsyslog configuration.." >&2
         invoke-rc.d rsyslog force-reload || echo "Warning: rsyslog failed to reload"
