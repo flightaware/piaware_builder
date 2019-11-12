@@ -142,7 +142,6 @@ EOF
             # strip out flightaware-user / flightaware-password
             remove_user_and_password
         fi
-        ;;
 
         echo "Reloading rsyslog configuration.." >&2
         invoke-rc.d rsyslog force-reload || echo "Warning: rsyslog failed to reload"
