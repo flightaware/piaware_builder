@@ -28,15 +28,15 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <wheezy|jessie|stretch|buster|xenial|bionic>" >&2
+  echo "syntax: $0 <jessie|stretch|buster|xenial|bionic>" >&2
   exit 1
 fi
 
 case $1 in
-  wheezy|jessie|stretch|buster|xenial|bionic) dist=$1 ;;
+  jessie|stretch|buster|xenial|bionic) dist=$1 ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <wheezy|jessie|stretch|buster|xenial|bionic>" >&2
+    echo "syntax: $0 <jessie|stretch|buster|xenial|bionic>" >&2
     exit 1
     ;;
 esac
@@ -62,7 +62,7 @@ clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/du
 
 # get a copy of cxfreeze and patch it for building on Debian
 case $dist in
-    wheezy|jessie)
+    jessie)
         if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
         then
             echo "Retrieving and patching cxfreeze"
@@ -104,10 +104,6 @@ cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.piaware.servic
 cp $OUTDIR/piaware/scripts/generate-pirehose-cert.service $OUTDIR/debian/piaware.generate-pirehose-cert.service
 
 case $dist in
-  wheezy)
-    echo "Updating changelog for wheezy backport build"
-    dch --changelog $OUTDIR/debian/changelog --local ~bpo7+ --distribution wheezy-backports --force-distribution "Automated backport build via piaware_builder"
-    ;;
   jessie)
     echo "Updating changelog for jessie backport build"
     dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
