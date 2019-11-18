@@ -56,7 +56,7 @@ clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcll
 
 clone_or_update https://github.com/flightaware/dump1090.git origin/dev $OUTDIR/dump1090
 
-clone_or_update https://github.com/mutability/mlat-client.git v0.2.10 $OUTDIR/mlat-client
+clone_or_update https://github.com/mutability/mlat-client.git origin/dev $OUTDIR/mlat-client
 
 clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/dump978
 
