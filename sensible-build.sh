@@ -80,7 +80,7 @@ case $dist in
         fi
         ;;
 
-    buster)
+    buster|disco)
         if [ ! -d $OUTDIR/cx_Freeze-6.0 ]
         then
             echo "Retrieving cxfreeze"
@@ -119,6 +119,10 @@ case $dist in
   bionic)
     echo "Updating changelog for bionic (18.04) build"
     dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1804+ --distribution bionic --force-distribution "Automated build via piaware_builder"
+    ;;
+  disco)
+    echo "Updating changelog for disco (19.04) build"
+    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1904+ --distribution disco --force-distribution "Automated build via piaware_builder"
     ;;
   buster)
     ;;
