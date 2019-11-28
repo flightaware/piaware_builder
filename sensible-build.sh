@@ -3,8 +3,8 @@
 set -e
 TOP=`dirname $0`
 
-export DEBFULLNAME=${DEBFULLNAME:-FlightAware build automation}
-export DEBEMAIL=${DEBEMAIL:-adsb-devs@flightaware.com}
+export DEBFULLNAME="${DEBFULLNAME:-FlightAware build automation}"
+export DEBEMAIL="${DEBEMAIL:-adsb-devs@flightaware.com}"
 
 clone_or_update() {
   repo=$1
