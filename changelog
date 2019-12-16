@@ -1,8 +1,22 @@
-piaware (3.8.0~dev) UNRELEASED; urgency=medium
+piaware (3.8.0) UNRELEASED; urgency=medium
 
-  * in development
+  * Add Buster build support
+  * Retire wheezy build support
+  * Add build rule for Ubuntu Disco (not officially supported)
+  * Correctly recognize Pi 4 wifi/ethernet interfaces by MAC address
+  * Add "network-config-style" configuration option (used in sdcard images only)
+  * Remove "flightaware-user" and "flightaware-password" configuration options;
+    PiAware sites should be associated with user accounts by visiting the
+    appropriate claim URL on the FlightAware website
+  * Remove support for configuration files on removable USB media
+  * When using an alternative configuration file (specified via "-config"),
+    ignore the standard configuration files entirely (/boot/piaware-config.txt,
+    /etc/piaware.conf)
+  * Updates to the client/server communication protocol
+  * Use faup1090 from dump1090-fa 3.8.0
+  * Use faup978 from dump978-fa 3.8.0
 
- -- Oliver Jowett <oliver@mutability.co.uk>  Thu, 07 Nov 2019 13:15:49 +0800
+ -- Oliver Jowett <oliver.jowett@flightaware.com>  Thu, 07 Nov 2019 13:15:49 +0800
 
 piaware (3.7.2) stable; urgency=medium
 
