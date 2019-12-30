@@ -1,4 +1,4 @@
-piaware (3.8.0) UNRELEASED; urgency=medium
+piaware (3.8.0) stable; urgency=medium
 
   * Add Buster build support
   * Retire wheezy build support
@@ -16,7 +16,7 @@ piaware (3.8.0) UNRELEASED; urgency=medium
   * Use faup1090 from dump1090-fa 3.8.0
   * Use faup978 from dump978-fa 3.8.0
 
- -- Oliver Jowett <oliver.jowett@flightaware.com>  Thu, 07 Nov 2019 13:15:49 +0800
+ -- Oliver Jowett <oliver.jowett@flightaware.com>  Mon, 30 Dec 2019 22:12:21 +0800
 
 piaware (3.7.2) stable; urgency=medium
 
