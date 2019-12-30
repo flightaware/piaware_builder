@@ -32,11 +32,41 @@ then
   exit 1
 fi
 
-case $1 in
-  jessie|stretch|buster|xenial|bionic) dist=$1 ;;
+dist="$1"
+case $dist in
+  jessie)
+    debdist=jessie
+    targetdist=jessie-backports
+    extraversion="~bpo8+"
+    ;;
+  stretch)
+    debdist=stretch
+    targetdist=stretch-backports
+    extraversion="~bpo9+"
+    ;;
+  buster)
+    debdist=buster
+    targetdist=buster
+    extraversion=""
+    ;;
+  xenial)
+    debdist=stretch
+    targetdist=xenial
+    extraversion="~ubuntu1604+"
+    ;;
+  bionic)
+    debdist=buster
+    targetdist=bionic
+    extraversion="~ubuntu1804+"
+    ;;
+  disco)
+    debdist=buster
+    targetdist=disco
+    extraversion="~ubuntu1904+"
+    ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <jessie|stretch|buster|xenial|bionic>" >&2
+    echo "syntax: $0 <jessie|stretch|buster|xenial|bionic|disco>" >&2
     exit 1
     ;;
 esac
@@ -61,7 +91,7 @@ clone_or_update https://github.com/mutability/mlat-client.git origin/staging $OU
 clone_or_update https://github.com/flightaware/dump978.git origin/staging $OUTDIR/dump978
 
 # get a copy of cxfreeze and patch it for building on Debian
-case $dist in
+case $debdist in
     jessie)
         if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
         then
@@ -72,7 +102,7 @@ case $dist in
         fi
         ;;
 
-    stretch|xenial|bionic)
+    stretch)
         if [ ! -d $OUTDIR/cx_Freeze-5.1.1 ]
         then
             echo "Retrieving cxfreeze"
@@ -80,7 +110,7 @@ case $dist in
         fi
         ;;
 
-    buster|disco)
+    buster)
         if [ ! -d $OUTDIR/cx_Freeze-6.0 ]
         then
             echo "Retrieving cxfreeze"
@@ -95,7 +125,7 @@ mkdir $OUTDIR/debian
 cp -r \
  $TOP/changelog \
  $TOP/common/* \
- $TOP/$dist/* \
+ $TOP/$debdist/* \
   $OUTDIR/debian
 
 # copy over the init.d / systemd files from the piaware source
@@ -103,33 +133,11 @@ cp $OUTDIR/piaware/scripts/piaware-rc-script $OUTDIR/debian/piaware.init
 cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.piaware.service
 cp $OUTDIR/piaware/scripts/generate-pirehose-cert.service $OUTDIR/debian/piaware.generate-pirehose-cert.service
 
-case $dist in
-  jessie)
-    echo "Updating changelog for jessie backport build"
-    dch --changelog $OUTDIR/debian/changelog --local ~bpo8+ --distribution jessie-backports --force-distribution "Automated backport build via piaware_builder"
-    ;;
-  stretch)
-    echo "Updating changelog for stretch backport build"
-    dch --changelog $OUTDIR/debian/changelog --local ~bpo9+ --distribution stretch-backports --force-distribution "Automated backport build via piaware_builder"
-    ;;
-  xenial)
-    echo "Updating changelog for xenial (16.04) build"
-    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1604+ --distribution xenial --force-distribution "Automated build via piaware_builder"
-    ;;
-  bionic)
-    echo "Updating changelog for bionic (18.04) build"
-    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1804+ --distribution bionic --force-distribution "Automated build via piaware_builder"
-    ;;
-  disco)
-    echo "Updating changelog for disco (19.04) build"
-    dch --changelog $OUTDIR/debian/changelog --local ~ubuntu1904+ --distribution disco --force-distribution "Automated build via piaware_builder"
-    ;;
-  buster)
-    ;;
-  *)
-    echo "You should fix the script so it knows about a distribution of $dist" >&2
-    ;;
-esac
+if [ -n "$extraversion" ]
+then
+    echo "Updating changelog for $targetdist build"
+    dch --changelog $OUTDIR/debian/changelog --local "$extraversion" --distribution "$targetdist" --force-distribution "Automated backport build via piaware_builder"
+fi
 
 # ok, ready to go.
 echo "Ok, package is ready to be built in $OUTDIR"
