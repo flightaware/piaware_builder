@@ -4,5 +4,6 @@ piaware*.deb
 piaware*.tar.gz
 piaware*.dsc
 piaware*.build
-package-jessie
-package-wheezy
+piaware*.buildinfo
+piaware*.ddeb
+package-*

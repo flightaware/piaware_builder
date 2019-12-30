@@ -1,9 +1,0 @@
-/var/log/piaware.log {
-  weekly
-  rotate 4
-  missingok
-  notifempty
-  postrotate
-    invoke-rc.d rsyslog rotate >/dev/null 2>&1 || true
-  endscript
-}
