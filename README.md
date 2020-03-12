@@ -37,6 +37,28 @@ package/debian/control:
 
 If you use pdebuild it will do this for you.
 
+## Caveat about tcl-tls
+
+The tcl-tls versions currently packaged by Debian include a bug that
+can cause Piaware to hang indefinitely under some network conditions.
+FlightAware provides rebuilt tcl-tls packages to work around this bug
+for Raspbian systems that are using the FlightAware package repository,
+and the Piaware package has a version dependency that requires at least
+this rebuilt version.
+
+For other systems where there is no prebuilt fixed package available,
+you will need to build a fixed tcl-tls package yourself.
+See https://github.com/flightaware/tcltls-rebuild for a suitable package.
+The main change is to configure tcltls with `--enable-ssl-fastpath`
+
+If you are running a version of Debian that includes packages newer than
+those in Debian Buster, then the version constraint won't matter - but you
+should still check that you have a package version that actually fixes
+the problem!
+
+For background, see the upstream bug report at
+https://core.tcl-lang.org/tcltls/tktview?name=6dd5588df6
+
 ## Build it
 
 Change to the package directory on your build machine and build with a
