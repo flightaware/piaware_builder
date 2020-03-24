@@ -1,8 +1,8 @@
-piaware (3.8.1~dev) UNRELEASED; urgency=medium
+piaware (3.8.1) stable; urgency=medium
 
-  * No changes for this release
+  * Require a tcl-tls version that has the fastpath workaround
 
- -- Eric Tran <eric.tran@flightaware.com>  Tue, 03 Mar 2020 08:25:00 -6000
+ -- Eric Tran <eric.tran@flightaware.com>  Thu, 19 Mar 2020 12:12:00 -6000
 
 piaware (3.8.0) stable; urgency=medium
 
