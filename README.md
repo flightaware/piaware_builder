@@ -26,6 +26,7 @@ package directory there; it is selfcontained.
 Ensure that your build machine has the build dependencies mentioned in
 package/debian/control:
 
+* devscripts (this is not listed as a build-dep and needs manual handling)
 * build-essential
 * debhelper
 * tcl8.6-dev
