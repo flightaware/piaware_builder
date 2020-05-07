@@ -1,3 +1,10 @@
+piaware (3.8.2~dev) UNRELEASED; urgency=medium
+
+  * in development
+  * Avoid use of pyvenv to fix builds on recent Ubuntu/Kali (github issue #15)
+
+ -- Oliver Jowett <oliver.jowett@flightaware.com>  Thu, 07 May 2020 20:51:44 +0800
+
 piaware (3.8.1) stable; urgency=medium
 
   * Require a tcl-tls version that has the fastpath workaround
