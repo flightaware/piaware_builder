@@ -1,3 +1,9 @@
+piaware (5.0~dev) UNRELEASED; urgency=medium
+
+  * In development
+
+ -- Eric Tran <eric.tran@flightaware.com>  Sat, 06 Feb 2021 09:21:00 -6000
+
 piaware (4.0) stable; urgency=medium
 
   * Avoid use of pyvenv to fix builds on recent Ubuntu/Kali (github issue #15)
