@@ -1,9 +1,9 @@
-piaware (5.0) UNRELEASED; urgency=medium
+piaware (5.0) stable;  urgency=medium
 
   * Make faup1090 pipe bidirectional to allow sending commands to faup
   * Fix SD card only settings to be configurable on FFs too
 
- -- Eric Tran <eric.tran@flightaware.com>  Fri, 05 Mar 2021 07:27:00 -6000
+ -- Eric Tran <eric.tran@flightaware.com>  Thu, 11 Mar 2021 07:27:00 -6000
 
 piaware (4.0) stable; urgency=medium
 
