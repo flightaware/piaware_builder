@@ -1,3 +1,9 @@
+piaware (6.0~dev) UNRELEASED; urgency=medium
+
+  * In development
+
+ -- Eric Tran <eric.tran@flightaware.com>  Tue, 18 Mar 2021 15:54:00 -6000
+
 piaware (5.0) stable;  urgency=medium
 
   * Make faup1090 pipe bidirectional to allow sending commands to faup
