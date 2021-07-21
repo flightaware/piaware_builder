@@ -102,13 +102,6 @@ case "$1" in
             chmod 0755 /var/cache/piaware
         fi
 
-        # fix piaware.conf ownership if present
-        if [ -f /etc/piaware.conf ]
-        then
-            chown root:$RUNAS /etc/piaware.conf
-            chmod 0640 /etc/piaware.conf  # this can contain passwords
-        fi
-
         if test -n "$2" && dpkg --compare-versions "$2" lt "3.0"
         then
             # it's an upgrade from 2.x
