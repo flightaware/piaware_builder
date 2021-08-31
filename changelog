@@ -1,8 +1,12 @@
-piaware (6.0) UNRELEASED; urgency=medium
+piaware (6.0) stable; urgency=medium
 
-  * In development
+  * Include dump978-fa version at adept login and status.json
+  * Add adaptive gain & slow-cpu config options
+  * Add some helper scripts for piaware-gui to restart network/receiver
+  * Add some extra paranoia in run-apt-get
+  * Update adept fallback IP addresses and tweak host-shuffling logic
 
- -- Eric Tran <eric.tran@flightaware.com>  Tue, 18 Aug 2021 07:30:00 -0600
+ -- Eric Tran <eric.tran@flightaware.com>  Tue, 31 Aug 2021 07:30:00 -0600
 
 piaware (5.0) stable;  urgency=medium
 
