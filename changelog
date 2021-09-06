@@ -1,3 +1,9 @@
+piaware (6.1) stable; urgency=medium
+
+  * No-change rebuild for PiAware 6.1
+
+ -- Oliver Jowett <oliver.jowett@flightaware.com>  Mon, 06 Sep 2021 16:20:45 +0800
+
 piaware (6.0) stable; urgency=medium
 
   * Include dump978-fa version at adept login and status.json

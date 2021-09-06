@@ -80,15 +80,15 @@ fi
 
 mkdir -p $OUTDIR
 
-clone_or_update https://github.com/flightaware/piaware.git v6.0 $OUTDIR/piaware
+clone_or_update https://github.com/flightaware/piaware.git e92ff3cd99079925b06bc0aa5895dcb3513dfe91 $OUTDIR/piaware
 
 clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git v6.0 $OUTDIR/dump1090
+clone_or_update https://github.com/flightaware/dump1090.git 752a7aeac02f5a1765684ccd3d2bfb2ff2860d8b $OUTDIR/dump1090
 
 clone_or_update https://github.com/mutability/mlat-client.git v0.2.11 $OUTDIR/mlat-client
 
-clone_or_update https://github.com/flightaware/dump978.git v6.0 $OUTDIR/dump978
+clone_or_update https://github.com/flightaware/dump978.git 3fb2986a9952cb46f2f07007b262f93fa24ed85e $OUTDIR/dump978
 
 # get a copy of cxfreeze and patch it for building on Debian
 case $debdist in
