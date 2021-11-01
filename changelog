@@ -1,3 +1,9 @@
+piaware (7.0) UNRELEASED; urgency=medium
+
+  * Cache dpkg-query results used in the status file for an hour
+
+ -- Eric Tran <eric.tran@flightaware.com>  Mon, 01 Nov 2021 15:12:45 -0600
+
 piaware (6.1) stable; urgency=medium
 
   * No-change rebuild for PiAware 6.1
