@@ -28,17 +28,12 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <jessie|stretch|buster|xenial|bionic>" >&2
+  echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic>" >&2
   exit 1
 fi
 
 dist="$1"
 case $dist in
-  jessie)
-    debdist=jessie
-    targetdist=jessie-backports
-    extraversion="~bpo8+"
-    ;;
   stretch)
     debdist=stretch
     targetdist=stretch-backports
@@ -46,7 +41,12 @@ case $dist in
     ;;
   buster)
     debdist=buster
-    targetdist=buster
+    targetdist=buster-backports
+    extraversion="~bpo10+"
+    ;;
+  bullseye)
+    debdist=bullseye
+    targetdist=bullseye
     extraversion=""
     ;;
   xenial)
@@ -66,7 +66,7 @@ case $dist in
     ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <jessie|stretch|buster|xenial|bionic|disco>" >&2
+    echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic|disco>" >&2
     exit 1
     ;;
 esac
@@ -92,16 +92,6 @@ clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/du
 
 # get a copy of cxfreeze and patch it for building on Debian
 case $debdist in
-    jessie)
-        if [ ! -d $OUTDIR/cx_Freeze-4.3.4 ]
-        then
-            echo "Retrieving and patching cxfreeze"
-            wget -nv -O - 'https://pypi.python.org/packages/source/c/cx_Freeze/cx_Freeze-4.3.4.tar.gz#md5=5bd662af9aa36e5432e9144da51c6378' | tar -C $OUTDIR -zxf -
-            patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-link-fix.patch
-            patch -d $OUTDIR/cx_Freeze-4.3.4 -p1 <$TOP/common/cxfreeze-python35-fix.patch
-        fi
-        ;;
-
     stretch)
         if [ ! -d $OUTDIR/cx_Freeze-5.1.1 ]
         then
@@ -115,6 +105,13 @@ case $debdist in
         then
             echo "Retrieving cxfreeze"
             wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.0.tar.gz' | tar -C $OUTDIR -zxf -
+        fi
+        ;;
+    bullseye)
+        if [ ! -d $OUTDIR/cx_Freeze-6.8 ]
+        then
+            echo "Retrieving cxfreeze"
+            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.tar.gz' | tar -C $OUTDIR -zxf -
         fi
         ;;
 esac
