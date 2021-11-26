@@ -93,21 +93,15 @@ clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/du
 # get a copy of cxfreeze and patch it for building on Debian
 case $debdist in
     stretch)
-        if [ ! -d $OUTDIR/cx_Freeze-5.1.1 ]
+        # stretch has Python 3.5; cx-freeze 6.3 is the latest version supporting Python 3.5
+        if [ ! -d $OUTDIR/cx_Freeze-6.3 ]
         then
             echo "Retrieving cxfreeze"
-            wget -nv -O - 'https://files.pythonhosted.org/packages/5f/16/eab51d6571dfec2554248cb027c51babd04d97f594ab6359e0707361297d/cx_Freeze-5.1.1.tar.gz' | tar -C $OUTDIR -zxf -
+            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz' | tar -C $OUTDIR -zxf -
         fi
         ;;
-
-    buster)
-        if [ ! -d $OUTDIR/cx_Freeze-6.0 ]
-        then
-            echo "Retrieving cxfreeze"
-            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.0.tar.gz' | tar -C $OUTDIR -zxf -
-        fi
-        ;;
-    bullseye)
+    buster|bullseye)
+        # Buster has Python 3.7, Bullseye has Python 3.9; both are supported by the latest cx-freeze at the time of writing (6.8)
         if [ ! -d $OUTDIR/cx_Freeze-6.8 ]
         then
             echo "Retrieving cxfreeze"
