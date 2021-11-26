@@ -58,16 +58,19 @@ install_dump978:
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
 
 setup_venv:
-	$(PYTHON3) -m venv --system-site-packages $(VENV)
+	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 
 clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd cx_Freeze-6.8.3 && $(VENV)/bin/pip install --no-index .
+	cd more-itertools-8.12.0 && $(VENV)/bin/python setup.py install
+	cd zipp-3.6.0 && $(VENV)/bin/python setup.py install
+	cd importlib_metadata-4.8.2 && $(VENV)/bin/python setup.py install
+	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py install
 
 build_mlat-client:
-	cd mlat-client && $(VENV)/bin/pip install --no-index .
+	cd mlat-client && $(VENV)/bin/python setup.py install
 
 install_mlat-client:
 	$(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers $(VENV)/bin/fa-mlat-client
