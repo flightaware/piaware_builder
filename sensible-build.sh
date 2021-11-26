@@ -103,7 +103,7 @@ fetch_archive() {
         mv $OUTDIR/archives/$name.tar.gz.unchecked $OUTDIR/archives/$name.tar.gz
     fi
 
-    tar -C $OUTDIR $OUTDIR/archives/$name.tar.gz $name/
+    tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
 }
 
 # get a copy of cxfreeze and patch it for building on Debian
