@@ -58,7 +58,7 @@ install_dump978:
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
 
 setup_venv:
-	$(PYTHON3) -m venv $(VENV)
+	$(PYTHON3) -m venv --system-site-packages $(VENV)
 
 clean_venv:
 	rm -fr $(VENV)
