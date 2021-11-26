@@ -28,7 +28,7 @@ clone_or_update() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic>" >&2
+  echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic|disco>" >&2
   exit 1
 fi
 
