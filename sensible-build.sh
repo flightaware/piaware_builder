@@ -102,10 +102,10 @@ case $debdist in
         ;;
     buster|bullseye)
         # Buster has Python 3.7, Bullseye has Python 3.9; both are supported by the latest cx-freeze at the time of writing (6.8)
-        if [ ! -d $OUTDIR/cx_Freeze-6.8 ]
+        if [ ! -d $OUTDIR/cx_Freeze-6.8.3 ]
         then
             echo "Retrieving cxfreeze"
-            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.tar.gz' | tar -C $OUTDIR -zxf -
+            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz' | tar -C $OUTDIR -zxf -
         fi
         ;;
 esac
