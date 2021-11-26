@@ -96,16 +96,20 @@ case $debdist in
         # stretch has Python 3.5; cx-freeze 6.3 is the latest version supporting Python 3.5
         if [ ! -d $OUTDIR/cx_Freeze-6.3 ]
         then
-            echo "Retrieving cxfreeze"
-            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz' | tar -C $OUTDIR -zxf -
+            echo "Retrieving cxfreeze 6.3"
+            wget -nv -O $OUTDIR/cx_Freeze-6.3.tar.gz https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz
+            echo "ac6212e44e072869de5153dd81e5d1c369b2ef73e75ed58cbb81ab59b4eaf6e1 $OUTDIR/cx_Freeze-6.3.tar.gz" | sha256sum -c -
+            tar -C $OUTDIR -zxf $OUTDIR/cx_Freeze-6.3.tar.gz
         fi
         ;;
     buster|bullseye)
         # Buster has Python 3.7, Bullseye has Python 3.9; both are supported by the latest cx-freeze at the time of writing (6.8)
         if [ ! -d $OUTDIR/cx_Freeze-6.8.3 ]
         then
-            echo "Retrieving cxfreeze"
-            wget -nv -O - 'https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz' | tar -C $OUTDIR -zxf -
+            echo "Retrieving cxfreeze 6.8.3"
+            wget -nv -O $OUTDIR/cx_Freeze-6.8.3.tar.gz https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz
+            echo "d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3 $OUTDIR/cx_Freeze-6.8.3.tar.gz" | sha256sum -c -
+            tar -C $OUTDIR -zxf $OUTDIR/cx_Freeze-6.8.3.tar.gz
         fi
         ;;
 esac
