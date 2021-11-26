@@ -64,6 +64,9 @@ clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
+	cd more-itertools-8.12.0 && $(VENV)/bin/python setup.py install
+	cd zipp-3.6.0 && $(VENV)/bin/python setup.py install
+	cd importlib_metadata-4.8.2 && $(VENV)/bin/python setup.py install
 	cd cx_Freeze-6.3 && $(VENV)/bin/python ./setup.py install
 
 build_mlat-client:

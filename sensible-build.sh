@@ -106,7 +106,12 @@ fetch_archive() {
     tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
 }
 
-# get a copy of cxfreeze and patch it for building on Debian
+# get cxfreeze dependencies
+fetch_archive more-itertools-8.12.0 https://github.com/more-itertools/more-itertools/archive/refs/tags/v8.12.0.tar.gz b708a64c95508d4f1fef137acbe3b482b6a95d0cd1b54400c50534cb0ae05923
+fetch_archive zipp-3.6.0 https://github.com/jaraco/zipp/archive/refs/tags/v3.6.0.tar.gz fd1af7ebc49a73dd0cd35f31d44a28022566e5114bdef64129fab0d9dc524486
+fetch_archive importlib_metadata-4.8.2 https://github.com/python/importlib_metadata/archive/refs/tags/v4.8.2.tar.gz d490678f0f37b0508571fda77e37542898acfa20c8716cff349d357ecb781dcd
+
+# get a cxfreeze version matching the system python
 case $debdist in
     stretch)
         # stretch has Python 3.5; cx-freeze 6.3 is the latest version supporting Python 3.5
@@ -114,9 +119,6 @@ case $debdist in
         ;;
     buster|bullseye)
         # Buster has Python 3.7, Bullseye has Python 3.9; both are supported by the latest cx-freeze at the time of writing (6.8)
-        fetch_archive more-itertools-8.12.0 https://github.com/more-itertools/more-itertools/archive/refs/tags/v8.12.0.tar.gz b708a64c95508d4f1fef137acbe3b482b6a95d0cd1b54400c50534cb0ae05923
-        fetch_archive zipp-3.6.0 https://github.com/jaraco/zipp/archive/refs/tags/v3.6.0.tar.gz fd1af7ebc49a73dd0cd35f31d44a28022566e5114bdef64129fab0d9dc524486
-        fetch_archive importlib_metadata-4.8.2 https://github.com/python/importlib_metadata/archive/refs/tags/v4.8.2.tar.gz d490678f0f37b0508571fda77e37542898acfa20c8716cff349d357ecb781dcd
         fetch_archive cx_Freeze-6.8.3 https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
         ;;
 esac
