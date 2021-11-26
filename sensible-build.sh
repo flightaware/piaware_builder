@@ -100,7 +100,7 @@ fetch_archive() {
         echo "Fetching $name .."
         wget -nv -O $OUTDIR/archives/$name.tar.gz.unchecked $url
         echo "$hash $OUTDIR/archives/$name.tar.gz.unchecked" | sha256sum -c -
-        mv $name.tar.gz.unchecked $name.tar.gz
+        mv $OUTDIR/archives/$name.tar.gz.unchecked $OUTDIR/archives/$name.tar.gz
     fi
 
     tar -C $OUTDIR $OUTDIR/archives/$name.tar.gz $name/
