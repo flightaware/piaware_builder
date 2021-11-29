@@ -99,6 +99,10 @@ fetch_archive() {
 
     rm -fr $OUTDIR/$name/
     tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
+    if [ -f $TOP/$name.patch ]; then
+        echo "applying $name.patch .."
+        patch -d $OUTDIR/$name -p1 <$TOP/$name.patch
+    fi
 }
 
 # get cxfreeze version and dependencies matching the system python version
@@ -107,56 +111,6 @@ fetch_archive() {
 #   - use a venv with system site packages and no pip
 #   - install packages via setup.py; patch setup.cfg on some packages so that the version is set,
 #     as we're missing the metadata stuff that pip will do via setuptools_scm
-
-# all versions need importlib_metadata updated, and transitively zipp needs installing too
-fetch_archive importlib_metadata-4.3.1 \
-              https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz \
-              2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
-
-patch $OUTDIR/importlib_metadata-4.3.1/setup.cfg <<EOF
---- importlib_metadata-4.3.1/setup.cfg.orig	2021-11-29 05:18:24.378089233 +0000
-+++ importlib_metadata-4.3.1/setup.cfg	2021-11-29 05:18:31.548214419 +0000
-@@ -1,4 +1,5 @@
- [metadata]
-+version = 4.3.1
- license_files = 
- 	LICENSE
- name = importlib_metadata
-EOF
-
-fetch_archive zipp-0.5.0 \
-              https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
-              d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
-patch -d $OUTDIR/zipp-0.5.0 -p1 <<EOF
-diff -ur zipp-0.5.0/setup.cfg zipp-0.5.0.new/setup.cfg
---- zipp-0.5.0/setup.cfg	2019-05-09 02:41:39.000000000 +0800
-+++ zipp-0.5.0.new/setup.cfg	2021-11-29 14:13:17.238423388 +0800
-@@ -2,6 +2,7 @@
- universal = 1
- 
- [metadata]
-+version = 0.5.0
- license_file = LICENSE
- name = zipp
- author = Jason R. Coombs
-@@ -22,7 +23,6 @@
- include_package_data = true
- python_requires = >=2.7
- install_requires = 
--setup_requires = setuptools_scm >= 1.15.0
- 
- [options.extras_require]
- testing = 
-diff -ur zipp-0.5.0/setup.py zipp-0.5.0.new/setup.py
---- zipp-0.5.0/setup.py	2019-05-09 02:41:19.000000000 +0800
-+++ zipp-0.5.0.new/setup.py	2021-11-29 14:11:14.026908611 +0800
-@@ -3,4 +3,4 @@
- import setuptools
- 
- if __name__ == "__main__":
--    setuptools.setup(use_scm_version=True)
-+    setuptools.setup()
-EOF
 
 case $debdist in
     stretch)
