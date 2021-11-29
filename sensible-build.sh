@@ -133,7 +133,7 @@ EOF
 fetch_archive zipp-0.5.0 \
               https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
               d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
-$OUTDIR/zipp-0.5.0 && patch -d $OUTDIR/zipp-0.5.0 -p1 <<EOF
+patch -d $OUTDIR/zipp-0.5.0 -p1 <<EOF
 diff -ur zipp-0.5.0/setup.cfg zipp-0.5.0.new/setup.cfg
 --- zipp-0.5.0/setup.cfg	2019-05-09 02:41:39.000000000 +0800
 +++ zipp-0.5.0.new/setup.cfg	2021-11-29 14:13:17.238423388 +0800
