@@ -6,21 +6,15 @@ TOP=`dirname $0`
 export DEBFULLNAME="${DEBFULLNAME:-FlightAware build automation}"
 export DEBEMAIL="${DEBEMAIL:-adsb-devs@flightaware.com}"
 
-clone_or_update() {
+shallow_clone() {
   repo=$1
   branch=$2
   target=$3
 
   echo "Retrieving $branch from $repo"
-
-  if [ -d $target/.git ]
-  then
-    (cd $target && git fetch origin)
-  else
-    git clone $repo $target
-  fi
-
-  (cd $target && git checkout -q --detach $branch --)
+  rm -fr $target
+  git clone -c advice.detachedHead=false --depth=1 --branch $branch $repo $target
+  (cd $target && git checkout --detach $branch)
   (cd $target && git --no-pager log -1 --oneline)
 }
 
@@ -81,15 +75,15 @@ fi
 mkdir -p $OUTDIR
 mkdir -p $OUTDIR/archives
 
-clone_or_update https://github.com/flightaware/piaware.git origin/dev $OUTDIR/piaware
+shallow_clone https://github.com/flightaware/piaware.git dev $OUTDIR/piaware
 
-clone_or_update https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
+shallow_clone https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
-clone_or_update https://github.com/flightaware/dump1090.git origin/dev $OUTDIR/dump1090
+shallow_clone https://github.com/flightaware/dump1090.git dev $OUTDIR/dump1090
 
-clone_or_update https://github.com/mutability/mlat-client.git v0.2.11 $OUTDIR/mlat-client
+shallow_clone https://github.com/mutability/mlat-client.git v0.2.11 $OUTDIR/mlat-client
 
-clone_or_update https://github.com/flightaware/dump978.git origin/dev $OUTDIR/dump978
+shallow_clone https://github.com/flightaware/dump978.git dev $OUTDIR/dump978
 
 fetch_archive() {
     name=$1
