@@ -103,13 +103,28 @@ fetch_archive() {
         mv $OUTDIR/archives/$name.tar.gz.unchecked $OUTDIR/archives/$name.tar.gz
     fi
 
+    rm -fr $OUTDIR/$name/
     tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
 }
 
 # get cxfreeze dependencies
-fetch_archive more-itertools-8.12.0 https://github.com/more-itertools/more-itertools/archive/refs/tags/v8.12.0.tar.gz b708a64c95508d4f1fef137acbe3b482b6a95d0cd1b54400c50534cb0ae05923
-fetch_archive zipp-3.6.0 https://github.com/jaraco/zipp/archive/refs/tags/v3.6.0.tar.gz fd1af7ebc49a73dd0cd35f31d44a28022566e5114bdef64129fab0d9dc524486
-fetch_archive importlib_metadata-4.8.2 https://github.com/python/importlib_metadata/archive/refs/tags/v4.8.2.tar.gz d490678f0f37b0508571fda77e37542898acfa20c8716cff349d357ecb781dcd
+# this is a bit of a nightmare due to interactions between Debian / venv / pip / setuptools et al
+# the simplest approach seems to be:
+#   - use a venv with system site packages and no pip
+#   - install importlib_metadata via setup.py; this requires patching setup.cfg so that the version is set,
+#     as we're missing the metadata stuff that pip will do via setuptools_scm
+fetch_archive importlib_metadata-4.3.1 https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz 2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
+
+patch $OUTDIR/importlib_metadata-4.3.1/setup.cfg <<EOF
+--- importlib_metadata-4.3.1/setup.cfg.orig	2021-11-29 05:18:24.378089233 +0000
++++ importlib_metadata-4.3.1/setup.cfg	2021-11-29 05:18:31.548214419 +0000
+@@ -1,4 +1,5 @@
+ [metadata]
++version = 4.3.1
+ license_files = 
+ 	LICENSE
+ name = importlib_metadata
+EOF
 
 # get a cxfreeze version matching the system python
 case $debdist in
