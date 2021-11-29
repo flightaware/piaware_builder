@@ -133,9 +133,10 @@ EOF
 fetch_archive zipp-0.5.0 \
               https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
               d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
-patch $OUTDIR/zipp-0.5.0/setup.cfg <<EOF
---- zipp-0.5.0/setup.cfg.orig	2021-11-29 13:45:26.559228431 +0800
-+++ zipp-0.5.0/setup.cfg	2021-11-29 13:45:32.923244382 +0800
+cd $OUTDIR/zipp-0.5.0 && patch -p1 <<EOF
+diff -ur zipp-0.5.0/setup.cfg zipp-0.5.0.new/setup.cfg
+--- zipp-0.5.0/setup.cfg	2019-05-09 02:41:39.000000000 +0800
++++ zipp-0.5.0.new/setup.cfg	2021-11-29 14:13:17.238423388 +0800
 @@ -2,6 +2,7 @@
  universal = 1
  
@@ -144,6 +145,23 @@ patch $OUTDIR/zipp-0.5.0/setup.cfg <<EOF
  license_file = LICENSE
  name = zipp
  author = Jason R. Coombs
+@@ -22,7 +23,6 @@
+ include_package_data = true
+ python_requires = >=2.7
+ install_requires = 
+-setup_requires = setuptools_scm >= 1.15.0
+ 
+ [options.extras_require]
+ testing = 
+diff -ur zipp-0.5.0/setup.py zipp-0.5.0.new/setup.py
+--- zipp-0.5.0/setup.py	2019-05-09 02:41:19.000000000 +0800
++++ zipp-0.5.0.new/setup.py	2021-11-29 14:11:14.026908611 +0800
+@@ -3,4 +3,4 @@
+ import setuptools
+ 
+ if __name__ == "__main__":
+-    setuptools.setup(use_scm_version=True)
++    setuptools.setup()
 EOF
 
 case $debdist in
