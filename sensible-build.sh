@@ -207,4 +207,4 @@ fi
 
 # ok, ready to go.
 echo "Ok, package is ready to be built in $OUTDIR"
-echo "run 'dpkg-buildpackage -b' there (or move it to a Pi and do so there, or use pbuilder, etc)"
+echo "run 'dpkg-buildpackage -b --no-sign' there (or move it to a Pi and do so there, or use pbuilder, etc)"
