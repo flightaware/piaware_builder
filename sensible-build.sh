@@ -107,13 +107,17 @@ fetch_archive() {
     tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
 }
 
-# get cxfreeze dependencies
+# get cxfreeze version and dependencies matching the system python version
 # this is a bit of a nightmare due to interactions between Debian / venv / pip / setuptools et al
 # the simplest approach seems to be:
 #   - use a venv with system site packages and no pip
-#   - install importlib_metadata via setup.py; this requires patching setup.cfg so that the version is set,
+#   - install packages via setup.py; patch setup.cfg on some packages so that the version is set,
 #     as we're missing the metadata stuff that pip will do via setuptools_scm
-fetch_archive importlib_metadata-4.3.1 https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz 2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
+
+# all versions need importlib_metadata updated, and transitively zipp needs installing too
+fetch_archive importlib_metadata-4.3.1 \
+              https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz \
+              2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
 
 patch $OUTDIR/importlib_metadata-4.3.1/setup.cfg <<EOF
 --- importlib_metadata-4.3.1/setup.cfg.orig	2021-11-29 05:18:24.378089233 +0000
@@ -126,15 +130,46 @@ patch $OUTDIR/importlib_metadata-4.3.1/setup.cfg <<EOF
  name = importlib_metadata
 EOF
 
-# get a cxfreeze version matching the system python
+fetch_archive zipp-0.5.0 \
+              https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
+              d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
+patch $OUTDIR/zipp-0.5.0/setup.cfg <<EOF
+--- zipp-0.5.0/setup.cfg.orig	2021-11-29 13:45:26.559228431 +0800
++++ zipp-0.5.0/setup.cfg	2021-11-29 13:45:32.923244382 +0800
+@@ -2,6 +2,7 @@
+ universal = 1
+ 
+ [metadata]
++version = 0.5.0
+ license_file = LICENSE
+ name = zipp
+ author = Jason R. Coombs
+EOF
+
 case $debdist in
     stretch)
-        # stretch has Python 3.5; cx-freeze 6.3 is the latest version supporting Python 3.5
-        fetch_archive cx_Freeze-6.3 https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz ac6212e44e072869de5153dd81e5d1c369b2ef73e75ed58cbb81ab59b4eaf6e1
+        # stretch has Python 3.5; cx-freeze 6.3 is the last version supporting Python 3.5
+        fetch_archive cx_Freeze-6.3 \
+                      https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz \
+                      ac6212e44e072869de5153dd81e5d1c369b2ef73e75ed58cbb81ab59b4eaf6e1
         ;;
-    buster|bullseye)
-        # Buster has Python 3.7, Bullseye has Python 3.9; both are supported by the latest cx-freeze at the time of writing (6.8)
-        fetch_archive cx_Freeze-6.8.3 https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
+    buster)
+        # Buster has Python 3.7; cx_Freeze 6.8.3 supports this
+        # typing_extensions need updating on python <3.8
+        fetch_archive typing_extensions-3.6.5 \
+                      https://files.pythonhosted.org/packages/a9/b0/c98f86c94706784699bff1262506ceab6e8101386e984a773b10be7500fc/typing_extensions-3.6.5.tar.gz \
+                      1c0a8e3b4ce55207a03dd0dcb98bc47a704c71f14fe4311ec860cc8af8f4bd27
+        fetch_archive cx_Freeze-6.8.3 \
+                      https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz \
+                      d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
+        ;;
+
+    bullseye)
+        # Bullseye has Python 3.9; cx_Freeze 6.8.3 will support this
+        # only importlib_metadata needs updating, no other dependencies
+        fetch_archive cx_Freeze-6.8.3 \
+                      https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz \
+                      d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
         ;;
 esac
 
