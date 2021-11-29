@@ -115,28 +115,42 @@ fetch_archive() {
 case $debdist in
     stretch)
         # stretch has Python 3.5; cx-freeze 6.3 is the last version supporting Python 3.5
-        # typing_extensions need updating on python <3.8
-        fetch_archive typing_extensions-3.6.5 \
-                      https://files.pythonhosted.org/packages/a9/b0/c98f86c94706784699bff1262506ceab6e8101386e984a773b10be7500fc/typing_extensions-3.6.5.tar.gz \
-                      1c0a8e3b4ce55207a03dd0dcb98bc47a704c71f14fe4311ec860cc8af8f4bd27
+        fetch_archive importlib_metadata-2.1.2 \
+                      https://files.pythonhosted.org/packages/6a/3d/21c1170a955a3ae8f5cdec1d89c57d3b146ed0436b25b83e98917af5fe18/importlib_metadata-2.1.2.tar.gz \
+                      09db40742204610ef6826af16e49f0479d11d0d54687d0169ff7fddf8b3f557f
+        fetch_archive zipp-0.5.0 \
+                      https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
+                      d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
         fetch_archive cx_Freeze-6.3 \
                       https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz \
                       ac6212e44e072869de5153dd81e5d1c369b2ef73e75ed58cbb81ab59b4eaf6e1
         ;;
+
     buster)
         # Buster has Python 3.7; cx_Freeze 6.8.3 supports this
         # typing_extensions need updating on python <3.8
         fetch_archive typing_extensions-3.6.5 \
                       https://files.pythonhosted.org/packages/a9/b0/c98f86c94706784699bff1262506ceab6e8101386e984a773b10be7500fc/typing_extensions-3.6.5.tar.gz \
                       1c0a8e3b4ce55207a03dd0dcb98bc47a704c71f14fe4311ec860cc8af8f4bd27
+        fetch_archive importlib_metadata-4.3.1 \
+                      https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz \
+                      2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
+        fetch_archive zipp-0.5.0 \
+                      https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
+                      d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
         fetch_archive cx_Freeze-6.8.3 \
                       https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz \
                       d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
         ;;
 
     bullseye)
-        # Bullseye has Python 3.9; cx_Freeze 6.8.3 will support this
-        # only importlib_metadata needs updating, no other dependencies
+        # Bullseye has Python 3.9; cx_Freeze 6.8.3 supports this
+        fetch_archive importlib_metadata-4.3.1 \
+                      https://files.pythonhosted.org/packages/a4/8b/1d63614ef7ced52a7da2d40753968c40a4bbc14fd9c0ba85d612b44ffd9a/importlib_metadata-4.3.1.tar.gz \
+                      2d932ea08814f745863fd20172fe7de4794ad74567db78f2377343e24520a5b6
+        fetch_archive zipp-0.5.0 \
+                      https://files.pythonhosted.org/packages/44/65/799bbac4c284c93ce9cbe67956a3625a4e1941d580832656bea202554117/zipp-0.5.0.tar.gz \
+                      d7ac25f895fb65bff937b381353c14eb1fa23d35f40abd72a5342cd57eb57fd1
         fetch_archive cx_Freeze-6.8.3 \
                       https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz \
                       d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
