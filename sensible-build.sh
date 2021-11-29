@@ -161,6 +161,10 @@ EOF
 case $debdist in
     stretch)
         # stretch has Python 3.5; cx-freeze 6.3 is the last version supporting Python 3.5
+        # typing_extensions need updating on python <3.8
+        fetch_archive typing_extensions-3.6.5 \
+                      https://files.pythonhosted.org/packages/a9/b0/c98f86c94706784699bff1262506ceab6e8101386e984a773b10be7500fc/typing_extensions-3.6.5.tar.gz \
+                      1c0a8e3b4ce55207a03dd0dcb98bc47a704c71f14fe4311ec860cc8af8f4bd27
         fetch_archive cx_Freeze-6.3 \
                       https://github.com/anthony-tuininga/cx_Freeze/archive/6.3.tar.gz \
                       ac6212e44e072869de5153dd81e5d1c369b2ef73e75ed58cbb81ab59b4eaf6e1
