@@ -78,8 +78,10 @@ build_mlat-client:
 	cd mlat-client && $(VENV)/bin/python setup.py install
 
 install_mlat-client:
-	$(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers $(VENV)/bin/fa-mlat-client
-	chmod +x $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
+	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
+	# install from there
+	$(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/freeze-mlat-client $(VENV)/bin/fa-mlat-client
+	cp -a $(CURDIR)/freeze-mlat-client/* $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/
 
 clean_mlat-client:
 	cd mlat-client && $(PYTHON3) setup.py clean -a
