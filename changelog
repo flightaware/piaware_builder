@@ -1,8 +1,12 @@
-piaware (7.0~dev) UNRELEASED; urgency=medium
+piaware (7.0) UNRELEASED; urgency=medium
 
-  * In development
+  * Caches dpkg-query results used in the piaware status file for an hour
+  * Adds new allow-ble-setup piaware-config variable
+  * Fixes broken logic with location setting
+  * Adds support for Bullseye; removes support for Jessie
+  * Update debhelper and python build dependencies; removes dh-systemd build dependency
 
- -- Eric Tran <eric.tran@flightaware.com>  Fri, 24 Sep 2021 10:33:00 -0600
+ -- Eric Tran <eric.tran@flightaware.com>  Mon, 20 Dec 2021 13:16:00 -0600
 
 piaware (6.1) stable; urgency=medium
 
