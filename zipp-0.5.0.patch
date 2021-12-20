@@ -1,0 +1,33 @@
+diff -ur zipp-0.5.0/setup.cfg zipp-0.5.0.new/setup.cfg
+--- zipp-0.5.0/setup.cfg	2019-05-09 02:41:39.000000000 +0800
++++ zipp-0.5.0.new/setup.cfg	2021-11-29 16:49:34.148210932 +0800
+@@ -2,6 +2,7 @@
+ universal = 1
+ 
+ [metadata]
++version = 0.5.0
+ license_file = LICENSE
+ name = zipp
+ author = Jason R. Coombs
+@@ -17,12 +18,10 @@
+ 	Programming Language :: Python :: 3
+ 
+ [options]
+-py_modules = zipp
+ packages = find:
+ include_package_data = true
+ python_requires = >=2.7
+ install_requires = 
+-setup_requires = setuptools_scm >= 1.15.0
+ 
+ [options.extras_require]
+ testing = 
+diff -ur zipp-0.5.0/setup.py zipp-0.5.0.new/setup.py
+--- zipp-0.5.0/setup.py	2019-05-09 02:41:19.000000000 +0800
++++ zipp-0.5.0.new/setup.py	2021-11-29 16:49:13.604175628 +0800
+@@ -3,4 +3,4 @@
+ import setuptools
+ 
+ if __name__ == "__main__":
+-    setuptools.setup(use_scm_version=True)
++    setuptools.setup(py_modules=['zipp'])

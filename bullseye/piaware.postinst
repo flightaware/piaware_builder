@@ -136,17 +136,15 @@ EOF
             remove_user_and_password
         fi
 
-        echo "Reloading rsyslog configuration.." >&2
-        invoke-rc.d rsyslog force-reload || echo "Warning: rsyslog failed to reload"
-    ;;
+        ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
-    ;;
+        ;;
 
     *)
         echo "postinst called with unknown argument \`$1'" >&2
         exit 1
-    ;;
+        ;;
 esac
 
 # dh_installdeb will replace this with shell code automatically

@@ -13,6 +13,11 @@ VENV=$(CURDIR)/debian/venv
 
 CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
 
+# ensure that setuptools doesn't try to retrieve anything off the network:
+override http_proxy := http://127.0.0.1:9/
+override https_proxy := http://127.0.0.1:9/
+export http_proxy https_proxy
+
 override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware clean_dump978
 
 override_dh_auto_configure: check_versions configure_tcllauncher
@@ -58,20 +63,25 @@ install_dump978:
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
 
 setup_venv:
-	$(PYTHON3) -m venv $(VENV) --without-pip
+	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 
 clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd cx_Freeze-6.0 && $(VENV)/bin/python ./setup.py install
+	cd typing_extensions-3.6.5 && $(VENV)/bin/python setup.py install
+	cd zipp-0.5.0 && $(VENV)/bin/python setup.py install
+	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py install
+	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py install
 
 build_mlat-client:
 	cd mlat-client && $(VENV)/bin/python setup.py install
 
 install_mlat-client:
-	$(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/debian/piaware/usr/lib/piaware/helpers $(VENV)/bin/fa-mlat-client
-	chmod +x $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
+	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
+	# install from there
+	$(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/freeze-mlat-client $(VENV)/bin/fa-mlat-client
+	cp -a $(CURDIR)/freeze-mlat-client/* $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/
 
 clean_mlat-client:
 	cd mlat-client && $(PYTHON3) setup.py clean -a
