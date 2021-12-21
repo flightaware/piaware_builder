@@ -1,5 +1,6 @@
 piaware (7.0) stable; urgency=medium
 
+  * Uses mlat-client 0.2.12
   * Caches dpkg-query results used in the piaware status file for an hour
   * Adds new allow-ble-setup piaware-config variable
   * Fixes broken logic with location setting
