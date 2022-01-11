@@ -1,4 +1,4 @@
-piaware (7.1~dev) UNRELEASED; urgency=medium
+piaware (7.1) stable; urgency=medium
 
   * Fix unintented restart of piaware during a piaware-managed upgrade
     (triggered by a behavioral change between debhelper compat 9 and compat 10)
