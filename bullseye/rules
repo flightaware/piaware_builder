@@ -32,14 +32,14 @@ override_dh_strip:
 	dh_strip -X debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
 
 override_dh_installinit:
-	dh_installinit --no-restart-on-upgrade
+	dh_installinit --no-stop-on-upgrade --no-restart-after-upgrade
 
 override_dh_systemd_enable:
 	dh_systemd_enable --name=piaware piaware.service
 	dh_systemd_enable --name=generate-pirehose-cert generate-pirehose-cert.service
 
 override_dh_systemd_start:
-	dh_systemd_start --no-restart-on-upgrade --name=piaware piaware.service
+	dh_systemd_start --no-stop-on-upgrade --no-restart-after-upgrade --name=piaware piaware.service
 	dh_systemd_start --name=generate-pirehose-cert generate-pirehose-cert.service
 
 check_versions:
