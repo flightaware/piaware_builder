@@ -75,7 +75,7 @@ fi
 mkdir -p $OUTDIR
 mkdir -p $OUTDIR/archives
 
-shallow_clone https://github.com/flightaware/piaware.git staging $OUTDIR/piaware
+shallow_clone https://github.com/flightaware/piaware.git dev $OUTDIR/piaware
 
 shallow_clone https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
 
