@@ -8,7 +8,7 @@ Homepage: https://github.com/flightaware
 
 Package: piaware
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, net-tools, iproute2, tclx8.4, tcl8.6, tcllib, tcl-tls (>= 1.7.16-1+fa1~bpo10), itcl3
+Depends: ${shlibs:Depends}, ${misc:Depends}, net-tools, iproute2, tclx8.4, tcl8.6, tcllib, tcl-tls (>= 1.7.22-2+fa1~bpo10), itcl3
 Suggests: dump1090-fa, dump978-fa
 Conflicts: fa-mlat-client
 Replaces: fa-mlat-client
