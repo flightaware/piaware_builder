@@ -1,3 +1,9 @@
+piaware (8.0~dev) UNRELEASED; urgency=medium
+
+  * In development
+
+ -- Eric Tran <eric.tran@flightaware.com>  Tue, 02 Aug 2022 10:16:00 -0600
+
 piaware (7.2) stable; urgency=medium
 
   * Use tcl-tls 1.7.22-2 FA rebuild for Bullseye
