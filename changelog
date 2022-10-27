@@ -1,6 +1,11 @@
 piaware (8.0~dev) UNRELEASED; urgency=medium
 
-  * In development
+  * Add systemd watchdog support to mitigate unavoidable tcl-tls hangs (#87)
+  * Ratelimit restarts of faup1090/dump1090 due to location changes
+    to 1/minute
+  * Add support for flagging "widearea" receivers, for receivers that
+    gather data from a large geographic area and shouldn't assume a single
+    receiver location (#91)
 
  -- Eric Tran <eric.tran@flightaware.com>  Tue, 02 Aug 2022 10:16:00 -0600
 
