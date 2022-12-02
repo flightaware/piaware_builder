@@ -24,7 +24,21 @@ case "$1" in
             # will get reloaded and see the new piaware.service
             # file
             mkdir -p /etc/systemd/system/piaware.service.d
-            cp /usr/share/piaware/disable-watchdog.conf /etc/systemd/system/piaware.service.d/
+
+            # we include the file content inline here, rather than putting it
+            # in /usr/share, because during preinst the new package hasn't been
+            # unpacked yet
+            cat >/etc/systemd/system/piaware.service.d/disable-watchdog.conf <<EOF
+# A drop-in service config that temporarily disable the
+# piaware service watchdog setting during upgrades, to avoid
+# a watchdog-restart of piaware if the currently running piaware
+# predates watchdog support. On the piaware restart, the drop-in
+# arranges to remove itself.
+
+[Service]
+WatchdogSec=0
+ExecStartPre=+/usr/share/piaware/enable-watchdog.sh
+EOF
         fi
     ;;
 
