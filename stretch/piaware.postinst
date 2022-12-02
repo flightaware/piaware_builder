@@ -88,11 +88,6 @@ remove_user_and_password() {
     done
 }
 
-disable_watchdog() {
-    mkdir -p /etc/systemd/system/piaware.service.d
-    cp /usr/share/piaware/disable-watchdog.conf /etc/systemd/system/piaware.service.d/
-}
-
 case "$1" in
     configure)
         if ! getent passwd "$RUNAS" >/dev/null
@@ -139,13 +134,6 @@ EOF
             # it's an upgrade from pre-3.8.0
             # strip out flightaware-user / flightaware-password
             remove_user_and_password
-        fi
-
-        if dpkg --compare-versions "$2" lt-nl "8.0"
-        then
-            # Upgrade from pre-8.0; disable the watchdog
-            # until the new piaware version is really running
-            disable_watchdog
         fi
 
         ;;
