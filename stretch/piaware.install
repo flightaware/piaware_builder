@@ -2,4 +2,3 @@ debian/rsyslog/piaware.conf etc/rsyslog.d/
 debian/upgrade-config.tcl usr/share/piaware/
 debian/piaware.conf etc/
 debian/enable-watchdog.sh usr/share/piaware/
-debian/disable-watchdog.conf usr/share/piaware/
