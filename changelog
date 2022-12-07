@@ -1,3 +1,9 @@
+piaware (8.1) stable; urgency=medium
+
+  * No change release for piaware 8.1
+
+ -- Eric Tran <eric.tran@flightaware.com>  Wed, 07 Dec 2022 14:33:00 -0600
+
 piaware (8.0) stable; urgency=medium
 
   * Add systemd watchdog support to mitigate unavoidable tcl-tls hangs (#87)
