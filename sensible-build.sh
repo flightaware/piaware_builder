@@ -1,21 +1,22 @@
 #!/bin/bash
 
 set -e
-TOP=`dirname $0`
+TOP=$(dirname "$0")
 
 export DEBFULLNAME="${DEBFULLNAME:-FlightAware build automation}"
 export DEBEMAIL="${DEBEMAIL:-adsb-devs@flightaware.com}"
 
 shallow_clone() {
-  repo=$1
-  branch=$2
-  target=$3
+  repo="$1"
+  branch="$2"
+  target="$3"
+  name=$(basename "$3")
 
   echo "Retrieving $branch from $repo"
-  rm -fr $target
-  git clone -c advice.detachedHead=false --depth=1 --branch $branch $repo $target
-  (cd $target && git checkout --detach $branch)
-  (cd $target && git --no-pager log -1 --oneline)
+  rm -rf "$target"
+  git clone -c advice.detachedHead=false --depth=1 --branch "$branch" "$repo" "$target"
+  (cd "$target" && git checkout --detach "$branch")
+  (cd "$target" && git --no-pager log -1 --oneline)
 }
 
 # setup:
@@ -72,41 +73,40 @@ esac
 
 if [ -z "$2" ]
 then
-  OUTDIR=$TOP/package-$dist
+  OUTDIR="$TOP/package-$dist"
 else
   OUTDIR="$2"
 fi
 
-mkdir -p $OUTDIR
-mkdir -p $OUTDIR/archives
+mkdir -vp "$OUTDIR/archives"
 
-shallow_clone https://github.com/flightaware/piaware.git v8.2 $OUTDIR/piaware
+shallow_clone https://github.com/flightaware/piaware.git v8.2 "$OUTDIR/piaware"
 
-shallow_clone https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
+shallow_clone https://github.com/flightaware/tcllauncher.git v1.8 "$OUTDIR/tcllauncher"
 
-shallow_clone https://github.com/flightaware/dump1090.git v8.2 $OUTDIR/dump1090
+shallow_clone https://github.com/flightaware/dump1090.git v8.2 "$OUTDIR/dump1090"
 
-shallow_clone https://github.com/mutability/mlat-client.git v0.2.13 $OUTDIR/mlat-client
+shallow_clone https://github.com/mutability/mlat-client.git v0.2.13 "$OUTDIR/mlat-client"
 
-shallow_clone https://github.com/flightaware/dump978.git v8.2 $OUTDIR/dump978
+shallow_clone https://github.com/flightaware/dump978.git v8.2 "$OUTDIR/dump978"
 
 fetch_archive() {
-    name=$1
-    url=$2
-    hash=$3
+    name="$1"
+    url="$2"
+    hash="$3"
 
-    if [ ! -f $OUTDIR/archives/$name.tar.gz ]; then
+    if [ ! -f "$OUTDIR/archives/$name.tar.gz" ]; then
         echo "Fetching $name .."
-        wget -nv -O $OUTDIR/archives/$name.tar.gz.unchecked --connect-timeout=30 $url
+        wget -nv -O "$OUTDIR/archives/$name.tar.gz.unchecked" --connect-timeout=30 "$url"
         echo "$hash $OUTDIR/archives/$name.tar.gz.unchecked" | sha256sum -c -
-        mv $OUTDIR/archives/$name.tar.gz.unchecked $OUTDIR/archives/$name.tar.gz
+        mv "$OUTDIR/archives/$name.tar.gz.unchecked" "$OUTDIR/archives/$name.tar.gz"
     fi
 
-    rm -fr $OUTDIR/$name/
-    tar -C $OUTDIR -zxf $OUTDIR/archives/$name.tar.gz $name/
-    if [ -f $TOP/$name.patch ]; then
+    rm -rf "${OUTDIR:?}/$name/"
+    tar -C "$OUTDIR" -zxf "$OUTDIR/archives/$name.tar.gz" "$name/"
+    if [ -f "$TOP/$name.patch" ]; then
         echo "applying $name.patch .."
-        patch -d $OUTDIR/$name -p1 <$TOP/$name.patch
+        patch -d "$OUTDIR/$name" -p1 <"$TOP/$name.patch"
     fi
 }
 
@@ -225,23 +225,26 @@ case $debdist in
 esac
 
 # copy our control files
-rm -fr $OUTDIR/debian
-mkdir $OUTDIR/debian
+rm -rf "$OUTDIR/debian"
+mkdir -vp "$OUTDIR/debian"
 cp -r \
- $TOP/changelog \
- $TOP/common/* \
- $TOP/$debdist/* \
-  $OUTDIR/debian
+ "$TOP/changelog" \
+ "$TOP/common/"* \
+ "$TOP/$debdist/"* \
+ "$OUTDIR/debian"
 
 # copy over the init.d / systemd files from the piaware source
-cp $OUTDIR/piaware/scripts/piaware-rc-script $OUTDIR/debian/piaware.init
-cp $OUTDIR/piaware/scripts/piaware.service $OUTDIR/debian/piaware.piaware.service
-cp $OUTDIR/piaware/scripts/generate-pirehose-cert.service $OUTDIR/debian/piaware.generate-pirehose-cert.service
+cp "$OUTDIR/piaware/scripts/piaware-rc-script" "$OUTDIR/debian/piaware.init"
+cp "$OUTDIR/piaware/scripts/piaware.service" "$OUTDIR/debian/piaware.piaware.service"
+cp "$OUTDIR/piaware/scripts/generate-pirehose-cert.service" "$OUTDIR/debian/piaware.generate-pirehose-cert.service"
 
 if [ -n "$extraversion" ]
 then
     echo "Updating changelog for $targetdist build"
-    dch --changelog $OUTDIR/debian/changelog --local "$extraversion" --distribution "$targetdist" --force-distribution "Automated backport build via piaware_builder"
+    dch --changelog "$OUTDIR/debian/changelog" \
+      --local "$extraversion" \
+      --distribution "$targetdist" \
+      --force-distribution "Automated backport build via piaware_builder"
 fi
 
 # ok, ready to go.
