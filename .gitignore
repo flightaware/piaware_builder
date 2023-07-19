@@ -7,3 +7,6 @@ piaware*.build
 piaware*.buildinfo
 piaware*.ddeb
 package-*
+
+# PyCharm stuff
+.idea/

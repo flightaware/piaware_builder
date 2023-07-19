@@ -33,8 +33,9 @@ package/debian/control:
 * autoconf
 * python3-dev
 * python3-venv
-* dh-systemd
-* libz-dev
+* python3-pip (only on debian for versions >= bookworm)
+* libz-dev (also known as `zlib1g-dev`)
+* cmake (only on debian for versions >= bookworm)
 
 If you use pdebuild it will do this for you.
 
