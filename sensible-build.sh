@@ -97,7 +97,7 @@ fetch_archive() {
 
     if [ ! -f $OUTDIR/archives/$name.tar.gz ]; then
         echo "Fetching $name .."
-        wget -nv -O $OUTDIR/archives/$name.tar.gz.unchecked --prefer-family=IPv4 --connect-timeout=30 $url
+        wget -nv -O $OUTDIR/archives/$name.tar.gz.unchecked --connect-timeout=30 $url
         echo "$hash $OUTDIR/archives/$name.tar.gz.unchecked" | sha256sum -c -
         mv $OUTDIR/archives/$name.tar.gz.unchecked $OUTDIR/archives/$name.tar.gz
     fi
