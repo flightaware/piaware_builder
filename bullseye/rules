@@ -26,7 +26,7 @@ export http_proxy https_proxy
 
 ifeq (arm,$(DEB_HOST_GNU_CPU))
 PYTHON_HOST_PLATFORM=linux-armv7l
-else ifeq (i686,$(DEB_BUILD_GNU_CPU))
+else ifeq (i686,$(DEB_HOST_GNU_CPU))
 PYTHON_HOST_PLATFORM=linux-i686
 else
 PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
