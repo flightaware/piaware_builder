@@ -18,6 +18,13 @@ override http_proxy := http://127.0.0.1:9/
 override https_proxy := http://127.0.0.1:9/
 export http_proxy https_proxy
 
+# When building/installing wheels we need to ensure that the target
+# platform is set to the correct platform for the Python we're running on;
+# setuptools gets this wrong and looks at "uname -m" which might not match
+# the running Python platform
+
+PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
+
 override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware clean_dump978
 
 override_dh_auto_configure: check_versions configure_tcllauncher
@@ -69,15 +76,15 @@ clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd zipp-0.5.0 && $(VENV)/bin/python setup.py bdist_wheel
+	cd zipp-0.5.0 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv zipp-0.5.0/dist/*.whl
-	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py bdist_wheel
+	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv importlib_metadata-4.3.1/dist/*.whl
-	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py bdist_wheel
+	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv cx_Freeze-6.8.3/dist/*.whl
 
 build_mlat-client:
-	cd mlat-client && $(VENV)/bin/python setup.py bdist_wheel
+	cd mlat-client && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv mlat-client/dist/*.whl
 
 install_mlat-client:
