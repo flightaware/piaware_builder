@@ -24,19 +24,16 @@ package directory there; it is selfcontained.
 ## Check build prerequisites
 
 Ensure that your build machine has the build dependencies mentioned in
-package/debian/control:
+package/debian/control. Something like this:
 
-* devscripts (this is not listed as a build-dep and needs manual handling)
-* build-essential
-* debhelper
-* tcl8.6-dev
-* autoconf
-* python3-dev
-* python3-venv
-* dh-systemd
-* libz-dev
+```
+# apt install build-essential git devscripts debhelper tcl8.6-dev autoconf \
+  python3-dev python3-venv python3-setuptools libz-dev openssl \
+  libboost-system-dev libboost-program-options-dev libboost-regex-dev \
+  libboost-filesystem-dev patchelf
+```
 
-If you use pdebuild it will do this for you.
+If you use pdebuild it will do most of this for you.
 
 ## Caveat about tcl-tls
 
