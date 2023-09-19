@@ -21,9 +21,16 @@ export http_proxy https_proxy
 # When building/installing wheels we need to ensure that the target
 # platform is set to the correct platform for the Python we're running on;
 # setuptools gets this wrong and looks at "uname -m" which might not match
-# the running Python platform
+# the running Python platform in 32-bit-userspace-on-64-bit-kernel cases
+# (This is fixed in newer wheel releases but we don't have that, so..)
 
+ifeq (arm,$(DEB_HOST_GNU_CPU))
+PYTHON_HOST_PLATFORM=linux-armv7l
+else ifeq (i686,$(DEB_BUILD_GNU_CPU))
+PYTHON_HOST_PLATFORM=linux-i686
+else
 PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
+endif
 
 override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware clean_dump978
 
