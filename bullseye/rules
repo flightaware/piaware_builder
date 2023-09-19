@@ -69,12 +69,16 @@ clean_venv:
 	rm -fr $(VENV)
 
 build_cxfreeze:
-	cd zipp-0.5.0 && $(VENV)/bin/python setup.py install
-	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py install
-	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py install
+	cd zipp-0.5.0 && $(VENV)/bin/python setup.py bdist_wheel
+	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv zipp-0.5.0/dist/*.whl
+	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py bdist_wheel
+	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv importlib_metadata-4.3.1/dist/*.whl
+	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py bdist_wheel
+	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv cx_Freeze-6.8.3/dist/*.whl
 
 build_mlat-client:
-	cd mlat-client && $(VENV)/bin/python setup.py install
+	cd mlat-client && $(VENV)/bin/python setup.py bdist_wheel
+	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv mlat-client/dist/*.whl
 
 install_mlat-client:
 	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
