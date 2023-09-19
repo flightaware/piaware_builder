@@ -41,6 +41,11 @@ case $dist in
   bullseye)
     debdist=bullseye
     targetdist=bullseye
+    extraversion="~bpo11+"
+    ;;
+  bookworm)
+    debdist=bookworm
+    targetdist=bookworm
     extraversion=""
     ;;
   xenial)
@@ -60,7 +65,7 @@ case $dist in
     ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic|disco>" >&2
+    echo "syntax: $0 <stretch|buster|bullseye|bookworm|xenial|bionic|disco>" >&2
     exit 1
     ;;
 esac
@@ -154,6 +159,12 @@ case $debdist in
         fetch_archive cx_Freeze-6.8.3 \
                       https://github.com/anthony-tuininga/cx_Freeze/archive/6.8.3.tar.gz \
                       d39c59fdfc82106dfe1e5dce09f2537a3cc82dc8295024f40f639d94193979c3
+        ;;
+
+    bookworm)
+        fetch_archive cx_Freeze-6.15.7 \
+                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.7.tar.gz \
+                      090d27e209d6844ea059270b97a91b01e385a5476e632e1af5cb47dd581b5c86
         ;;
 esac
 
