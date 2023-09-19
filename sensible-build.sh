@@ -82,7 +82,7 @@ mkdir -p $OUTDIR/archives
 
 shallow_clone https://github.com/flightaware/piaware.git dev $OUTDIR/piaware
 
-shallow_clone https://github.com/flightaware/tcllauncher.git v1.8 $OUTDIR/tcllauncher
+shallow_clone https://github.com/flightaware/tcllauncher.git v1.10 $OUTDIR/tcllauncher
 
 shallow_clone https://github.com/flightaware/dump1090.git dev $OUTDIR/dump1090
 
