@@ -34,7 +34,7 @@ node(label: 'raspberrypi') {
         def arch = dist_and_arch[1]
 
         String pkgdir
-        if pkgdirs.containsKey(dist) {
+        if (pkgdirs.containsKey(dist)) {
             pkgdir = pkgdirs[dist]
         } else {
             pkgdir = "pkg-${dist}"
