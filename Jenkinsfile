@@ -67,7 +67,7 @@ node(label: 'raspberrypi') {
             def dist = dist_and_arch[0]
             def arch = dist_and_arch[1]
             def resultdir = resultdirs[dist_and_arch]
-            sh "/build/pi-builder/scripts/deploy.sh -distribution ${dist} -branch ${env.BRANCH_NAME} ${resultdir}/*.deb"
+            sh "/build/pi-builder/scripts/deploy.sh -distribution ${dist} -architectures ${arch} -branch ${env.BRANCH_NAME} ${resultdir}/*.deb"
         }
     }
 }
