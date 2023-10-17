@@ -162,9 +162,9 @@ case $debdist in
         ;;
 
     bookworm)
-        fetch_archive cx_Freeze-6.15.7 \
-                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.7.tar.gz \
-                      090d27e209d6844ea059270b97a91b01e385a5476e632e1af5cb47dd581b5c86
+        fetch_archive cx_Freeze-6.15.9 \
+                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.9.tar.gz \
+                      d32b309b355f2b377dae585a839e39e3251b3f9716f2b4983be92972c2863000
         ;;
 esac
 
