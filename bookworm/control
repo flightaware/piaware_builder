@@ -2,7 +2,7 @@ Source: piaware
 Section: embedded
 Priority: extra
 Maintainer: FlightAware Developers <adsb-devs@flightaware.com>
-Build-Depends: debhelper(>=10), tcl8.6-dev, autoconf, python3-dev(>=3.9), python3-venv, python3-setuptools, python3-wheel, python3-build, python3-pip, libz-dev, openssl, libboost-system-dev, libboost-program-options-dev, libboost-regex-dev, libboost-filesystem-dev, patchelf
+Build-Depends: debhelper(>=10), tcl8.6-dev, autoconf, python3-dev(>=3.9), python3-venv, python3-setuptools (>=62.6), python3-wheel (>=0.38.4), python3-build, python3-pip, libz-dev, openssl, libboost-system-dev, libboost-program-options-dev, libboost-regex-dev, libboost-filesystem-dev, patchelf
 Standards-Version: 3.9.3
 Homepage: https://github.com/flightaware
 
