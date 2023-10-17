@@ -7,7 +7,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 DPKG_EXPORT_BUILDFLAGS = 1
 include /usr/share/dpkg/default.mk
 
-PYTHON3=/usr/bin/$(shell py3versions -d)
+PYTHON3 := /usr/bin/$(shell py3versions -d)
 
 VENV=$(CURDIR)/debian/venv
 
@@ -32,11 +32,11 @@ else
 PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
 endif
 
-override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_venv clean_piaware clean_dump978
+override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_piaware clean_dump978
 
 override_dh_auto_configure: check_versions configure_tcllauncher
 
-override_dh_auto_build: build_tcllauncher build_dump1090 setup_venv build_cxfreeze build_mlat-client build_dump978
+override_dh_auto_build: build_tcllauncher build_dump1090 build_mlat-client build_dump978
 
 override_dh_auto_install: install_tcllauncher install_dump1090 install_mlat-client install_piaware install_dump978
 
@@ -76,21 +76,17 @@ install_dump978:
 	install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
 	install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
 
-setup_venv:
+build_mlat-client:
+	# setup venv for mlat-client build
 	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
-
-clean_venv:
-	rm -fr $(VENV)
-
-build_cxfreeze:
+	# build cxfreeze for later packaging of mlat-client
 	cd zipp-0.5.0 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv zipp-0.5.0/dist/*.whl
 	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv importlib_metadata-4.3.1/dist/*.whl
 	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv cx_Freeze-6.8.3/dist/*.whl
-
-build_mlat-client:
+	# build mlat-client proper
 	cd mlat-client && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
 	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv mlat-client/dist/*.whl
 
@@ -101,8 +97,11 @@ install_mlat-client:
 	cp -a $(CURDIR)/freeze-mlat-client/* $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/
 
 clean_mlat-client:
-	cd mlat-client && $(PYTHON3) setup.py clean -a
-	rm -fr zipp-0.5.0/dist/* importlib_metadata-4.3.1/dist/* cx_Freeze-6.8.3/dist/* mlat-client/dist/*
+	rm -fr mlat-client/build mlat-client/dist
+	rm -fr cx_Freeze-6.8.3/build cx_Freeze-6.8.3/dist
+	rm -fr importlib_metadata-4.3.1/build importlib_metadata-4.3.1/dist
+	rm -fr zipp-0.5.0/build zipp-0.5.0/dist
+	rm -fr $(VENV)
 
 install_piaware:
 	make -C piaware DESTDIR=$(CURDIR)/debian/piaware install INSTALL_SUDOERS=1 SYSTEMD= SYSVINIT= TCLLAUNCHER=$(CURDIR)/debian/piaware/usr/bin/tcllauncher
