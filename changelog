@@ -1,6 +1,9 @@
 piaware (9.0~dev) UNRELEASED; urgency=medium
 
-  * in development
+  * Update to mlat-client 0.2.13
+  * Support bookworm
+  * Support arm64 on bullseye / bookworm
+  * Discontinue support for stretch
 
  -- Oliver Jowett <oliver.jowett@flightaware.com>  Tue, 19 Sep 2023 04:46:51 +0000
 
