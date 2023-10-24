@@ -86,7 +86,7 @@ shallow_clone https://github.com/flightaware/tcllauncher.git v1.10 $OUTDIR/tclla
 
 shallow_clone https://github.com/flightaware/dump1090.git dev $OUTDIR/dump1090
 
-shallow_clone https://github.com/mutability/mlat-client.git dev $OUTDIR/mlat-client
+shallow_clone https://github.com/mutability/mlat-client.git v0.2.13 $OUTDIR/mlat-client
 
 shallow_clone https://github.com/flightaware/dump978.git dev $OUTDIR/dump978
 
