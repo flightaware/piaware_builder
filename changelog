@@ -4,6 +4,7 @@ piaware (9.0~dev) UNRELEASED; urgency=medium
   * Support bookworm
   * Support arm64 on bullseye / bookworm
   * Discontinue support for stretch
+  * faup1090: fix handling of negative FMS altitudes in DO-260A messages
 
  -- Oliver Jowett <oliver.jowett@flightaware.com>  Tue, 19 Sep 2023 04:46:51 +0000
 
