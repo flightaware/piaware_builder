@@ -81,10 +81,10 @@ build_mlat-client:
 	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 	# build cxfreeze for later packaging of mlat-client
 	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels cx_Freeze-6.15.9
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv $(CURDIR)/wheels/cx_Freeze-6.15.9-*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_Freeze-6.15.9-*.whl
 	# build mlat-client proper
 	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels mlat-client
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv $(CURDIR)/wheels/MlatClient-*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/MlatClient-*.whl
 
 install_mlat-client:
 	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
