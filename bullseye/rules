@@ -81,14 +81,14 @@ build_mlat-client:
 	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 	# build cxfreeze for later packaging of mlat-client
 	cd zipp-0.5.0 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv zipp-0.5.0/dist/*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv zipp-0.5.0/dist/*.whl
 	cd importlib_metadata-4.3.1 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv importlib_metadata-4.3.1/dist/*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv importlib_metadata-4.3.1/dist/*.whl
 	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv cx_Freeze-6.8.3/dist/*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv cx_Freeze-6.8.3/dist/*.whl
 	# build mlat-client proper
 	cd mlat-client && $(VENV)/bin/python setup.py bdist_wheel --plat-name $(PYTHON_HOST_PLATFORM)
-	$(VENV)/bin/python -m pip install --no-index --no-deps --require-virtualenv mlat-client/dist/*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv mlat-client/dist/*.whl
 
 install_mlat-client:
 	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
