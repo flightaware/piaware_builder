@@ -1,4 +1,4 @@
-piaware (9.0~dev) UNRELEASED; urgency=medium
+piaware (9.0) stable; urgency=medium
 
   * Update to mlat-client 0.2.13
   * Support bookworm
@@ -6,7 +6,7 @@ piaware (9.0~dev) UNRELEASED; urgency=medium
   * Discontinue support for stretch
   * faup1090: fix handling of negative FMS altitudes in DO-260A messages
 
- -- Oliver Jowett <oliver.jowett@flightaware.com>  Tue, 19 Sep 2023 04:46:51 +0000
+ -- Oliver Jowett <oliver.jowett@flightaware.com>  Mon, 06 Nov 2023 21:45:21 +0800
 
 piaware (8.2) stable; urgency=medium
 
