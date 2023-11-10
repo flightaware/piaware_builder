@@ -72,6 +72,8 @@ build_mlat-client:
 	cd cx_Freeze-6.8.3 && $(VENV)/bin/python setup.py install
 	# build mlat-client proper
 	cd mlat-client && $(VENV)/bin/python setup.py install
+	# nasty hack to work around distutils/cxfreeze interactions on buster
+	cp debian/fa-mlat-client-override $(VENV)/bin/fa-mlat-client
 
 install_mlat-client:
 	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
