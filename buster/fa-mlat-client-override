@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+# The generated entrypoint script produced on buster does not
+# play well with the version of cx_Freeze used on buster, so
+# we override it with this version instead.
+
+import sys
+import flightaware.client.cli
+
+if __name__ == '__main__':
+    flightaware.client.cli.main()
