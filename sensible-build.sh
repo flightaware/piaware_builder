@@ -22,13 +22,14 @@ shallow_clone() {
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <stretch|buster|bullseye|xenial|bionic|disco>" >&2
+  echo "syntax: $0 <buster|bullseye|bookworm|xenial|bionic|disco>" >&2
   exit 1
 fi
 
 dist="$1"
 case $dist in
   stretch)
+    # EOL, not tested
     debdist=stretch
     targetdist=stretch-backports
     extraversion="~bpo9+"
@@ -49,23 +50,26 @@ case $dist in
     extraversion=""
     ;;
   xenial)
+    # not tested
     debdist=stretch
     targetdist=xenial
     extraversion="~ubuntu1604+"
     ;;
   bionic)
+    # not tested
     debdist=buster
     targetdist=bionic
     extraversion="~ubuntu1804+"
     ;;
   disco)
+    # not tested
     debdist=buster
     targetdist=disco
     extraversion="~ubuntu1904+"
     ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <stretch|buster|bullseye|bookworm|xenial|bionic|disco>" >&2
+    echo "syntax: $0 <buster|bullseye|bookworm>" >&2
     exit 1
     ;;
 esac
