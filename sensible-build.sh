@@ -18,12 +18,16 @@ shallow_clone() {
   (cd $target && git --no-pager log -1 --oneline)
 }
 
+usage() {
+  echo "syntax: $0 <buster|bullseye|bookworm>" >&2
+  exit 1
+}
+
 # setup:
 
 if [ $# -lt 1 ]
 then
-  echo "syntax: $0 <buster|bullseye|bookworm|xenial|bionic|disco>" >&2
-  exit 1
+  usage
 fi
 
 dist="$1"
@@ -69,8 +73,7 @@ case $dist in
     ;;
   *)
     echo "unknown build distribution $1" >&2
-    echo "syntax: $0 <buster|bullseye|bookworm>" >&2
-    exit 1
+    usage
     ;;
 esac
 
