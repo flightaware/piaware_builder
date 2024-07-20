@@ -19,7 +19,7 @@ shallow_clone() {
 }
 
 usage() {
-  echo "syntax: $0 <buster|bullseye|bookworm>" >&2
+  echo "syntax: $0 <buster|bullseye|bookworm|pixie>" >&2
   exit 1
 }
 
