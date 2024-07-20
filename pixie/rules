@@ -1,0 +1,148 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+PYTHON3 := /usr/bin/$(shell py3versions -d)
+
+VENV=$(CURDIR)/debian/venv
+
+CHANGELOG_VERSION=$(shell dpkg-parsechangelog | sed -n 's/^Version: //p')
+
+# ensure that setuptools doesn't try to retrieve anything off the network:
+override http_proxy := http://127.0.0.1:9/
+override https_proxy := http://127.0.0.1:9/
+export http_proxy https_proxy
+
+# When building/installing wheels we need to ensure that the target
+# platform is set to the correct platform for the Python we're running on;
+# setuptools gets this wrong and looks at "uname -m" which might not match
+# the running Python platform in 32-bit-userspace-on-64-bit-kernel cases
+# (This is fixed in newer wheel releases but we don't have that, so..)
+
+ifeq (arm,$(DEB_HOST_GNU_CPU))
+PYTHON_HOST_PLATFORM=linux-armv7l
+else ifeq (i686,$(DEB_HOST_GNU_CPU))
+PYTHON_HOST_PLATFORM=linux-i686
+else
+PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
+endif
+
+override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_piaware clean_dump978
+
+override_dh_auto_configure: check_versions configure_tcllauncher
+
+override_dh_auto_build: build_tcllauncher build_dump1090 build_mlat-client build_dump978
+
+override_dh_auto_install: install_tcllauncher install_dump1090 install_mlat-client install_piaware install_dump978
+
+override_dh_strip:
+        # cxfreeze produces a launcher executable with a zipfile appended
+        # attempting to strip it will damage the zipfile
+        dh_strip -X debian/piaware/usr/lib/piaware/helpers/fa-mlat-client
+
+override_dh_installinit:
+        dh_installinit --no-stop-on-upgrade --no-restart-after-upgrade
+
+override_dh_systemd_enable:
+        dh_systemd_enable --name=piaware piaware.service
+        dh_systemd_enable --name=generate-pirehose-cert generate-pirehose-cert.service
+
+override_dh_systemd_start:
+        dh_systemd_start --no-stop-on-upgrade --no-restart-after-upgrade --name=piaware piaware.service
+        dh_systemd_start --name=generate-pirehose-cert generate-pirehose-cert.service
+
+check_versions:
+        debian/check_versions
+
+configure_tcllauncher:
+        cd tcllauncher && autoconf -f && ./configure --with-tcl=/usr/lib/tcl8.6
+
+build_dump1090:
+        make -C dump1090 RTLSDR=no BLADERF=no DUMP1090_VERSION="piaware-$(CHANGELOG_VERSION)" faup1090
+
+install_dump1090:
+        install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
+        install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump1090/faup1090
+
+build_dump978:
+        make -C dump978 faup978 VERSION=$(DEB_VERSION)
+
+install_dump978:
+        install -d $(CURDIR)/debian/piaware/usr/lib/piaware/helpers
+        install -t $(CURDIR)/debian/piaware/usr/lib/piaware/helpers dump978/faup978
+
+build_mlat-client:
+        # setup venv for mlat-client build
+        $(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
+        # build setuptools_scm
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels setuptools_scm-8.1.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/setuptools_scm-8.1.0*.whl
+        # build trove_classifiers
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels trove_classifiers-2024.7.2
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/trove_classifiers-0.0.0-*.whl
+        # build pluggy
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels pluggy-1.5.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/pluggy-1.5.0-*.whl
+        # build flit_core
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels flit_core-3.9.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/flit_core-3.9.0-*.whl
+        # build pathspec
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels pathspec-0.12.1
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/pathspec-0.12.1-*.whl
+        # build hatchling
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels hatchling-1.25.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/hatchling-1.25.0-*.whl
+        # build hatch-vcs
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels hatch_vcs-0.4.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/hatch_vcs-0.4.0-*.whl
+        # build filelock
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels filelock-3.15.4
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/filelock-3.15.4-*.whl
+        # build cxfreeze for later packaging of mlat-client
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels cx_freeze-7.2.0
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_Freeze-7.2.0*.whl
+        # build mlat-client proper
+        $(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels mlat-client
+        $(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/MlatClient-*.whl
+
+install_mlat-client:
+        # newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and
+        # install from there
+        $(VENV)/bin/python $(VENV)/bin/cxfreeze --target-dir=$(CURDIR)/freeze-mlat-client $(VENV)/bin/fa-mlat-client
+        cp -a $(CURDIR)/freeze-mlat-client/* $(CURDIR)/debian/piaware/usr/lib/piaware/helpers/
+
+clean_mlat-client:
+        rm -fr mlat-client/build mlat-client/dist
+        rm -fr setuptools_scm-8.1.0/build
+        rm -fr trove_classifiers-2024.7.2/build
+        rm -fr pluggy-1.5.0/build pluggy-1.5.0/dist
+        rm -fr flit_core-3.9.0/build flit_core-3.9.0/dist
+        rm -fr pathspec-0.12.1/build pathspec-0.12.1/dist
+        rm -fr hatchling-1.25.0/build hatchling-1.25.0/dist
+        rm -fr hatch_vcs-0.4.0/build hatch_vcs-0.4.0/dist
+        rm -fr filelock-3.15.4/build filelock-3.15.4/dist
+        rm -fr cx_freeze-7.2.0/build cx_Freeze-6.15.9/dist
+        rm -fr $(VENV) $(CURDIR)/wheels
+
+install_piaware:
+        make -C piaware DESTDIR=$(CURDIR)/debian/piaware install INSTALL_SUDOERS=1 SYSTEMD= SYSVINIT= TCLLAUNCHER=$(CURDIR)/debian/piaware/usr/bin/tcllauncher
+
+configure_%:
+        dh_auto_configure -D $*
+
+build_%:
+        dh_auto_build -D $*
+
+install_%:
+        dh_auto_install -D $*
+
+clean_%:
+        dh_auto_clean -D $*
+
+%:
+        dh $@ --with=systemd

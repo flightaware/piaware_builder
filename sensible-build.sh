@@ -53,6 +53,11 @@ case $dist in
     targetdist=bookworm
     extraversion=""
     ;;
+  pixie)
+    debdist=pixie
+    targetdist=pixie
+    extraversion=""
+    ;;
   xenial)
     # not tested
     debdist=stretch
@@ -70,6 +75,12 @@ case $dist in
     debdist=buster
     targetdist=disco
     extraversion="~ubuntu1904+"
+    ;;
+  noble)
+    # not tested
+    debdist=pixie
+    targetdist=noble
+    extraversion="~ubuntu2404+"
     ;;
   *)
     echo "unknown build distribution $1" >&2
@@ -172,6 +183,36 @@ case $debdist in
         fetch_archive cx_Freeze-6.15.9 \
                       https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.9.tar.gz \
                       d32b309b355f2b377dae585a839e39e3251b3f9716f2b4983be92972c2863000
+        ;;
+
+    pixie)
+        fetch_archive setuptools_scm-8.1.0 \
+                      https://files.pythonhosted.org/packages/4f/a4/00a9ac1b555294710d4a68d2ce8dfdf39d72aa4d769a7395d05218d88a42/setuptools_scm-8.1.0.tar.gz \
+                      42dea1b65771cba93b7a515d65a65d8246e560768a66b9106a592c8e7f26c8a7
+        fetch_archive trove_classifiers-2024.7.2 \
+                      https://files.pythonhosted.org/packages/78/c9/83f915c3f6f94f4c862c7470284fd714f312cce8e3cf98361312bc02493d/trove_classifiers-2024.7.2.tar.gz \
+                      8328f2ac2ce3fd773cbb37c765a0ed7a83f89dc564c7d452f039b69249d0ac35
+        fetch_archive pluggy-1.5.0 \
+                      https://files.pythonhosted.org/packages/96/2d/02d4312c973c6050a18b314a5ad0b3210edb65a906f868e31c111dede4a6/pluggy-1.5.0.tar.gz \
+                      2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1
+        fetch_archive flit_core-3.9.0 \
+                      https://files.pythonhosted.org/packages/c4/e6/c1ac50fe3eebb38a155155711e6e864e254ce4b6e17fe2429b4c4d5b9e80/flit_core-3.9.0.tar.gz \
+                      72ad266176c4a3fcfab5f2930d76896059851240570ce9a98733b658cb786eba
+        fetch_archive pathspec-0.12.1 \
+                      https://files.pythonhosted.org/packages/ca/bc/f35b8446f4531a7cb215605d100cd88b7ac6f44ab3fc94870c120ab3adbf/pathspec-0.12.1.tar.gz \
+                      a482d51503a1ab33b1c67a6c3813a26953dbdc71c31dacaef9a838c4e29f5712
+        fetch_archive hatchling-1.25.0 \
+                      https://files.pythonhosted.org/packages/a3/51/8a4a67a8174ce59cf49e816e38e9502900aea9b4af672d0127df8e10d3b0/hatchling-1.25.0.tar.gz \
+                      7064631a512610b52250a4d3ff1bd81551d6d1431c4eb7b72e734df6c74f4262
+        fetch_archive hatch_vcs-0.4.0 \
+                      https://files.pythonhosted.org/packages/f5/c9/54bb4fa27b4e4a014ef3bb17710cdf692b3aa2cbc7953da885f1bf7e06ea/hatch_vcs-0.4.0.tar.gz \
+                      093810748fe01db0d451fabcf2c1ac2688caefd232d4ede967090b1c1b07d9f7
+        fetch_archive filelock-3.15.4 \
+                      https://files.pythonhosted.org/packages/08/dd/49e06f09b6645156550fb9aee9cc1e59aba7efbc972d665a1bd6ae0435d4/filelock-3.15.4.tar.gz \
+                      2207938cbc1844345cb01a5a95524dae30f0ce089eba5b00378295a17e3e90cb
+        fetch_archive cx_freeze-7.2.0 \
+                      https://files.pythonhosted.org/packages/6e/23/6947cd90cfe87712099fbeab2061309ab1d2a95d54f3453cb6bb21b00034/cx_freeze-7.2.0.tar.gz \
+                      c57f7101b4d35132464b1ec88cb8948c3b7c5b4ece4bb354c16091589cb33583
         ;;
 esac
 
