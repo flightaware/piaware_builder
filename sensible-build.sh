@@ -19,7 +19,7 @@ shallow_clone() {
 }
 
 usage() {
-  echo "syntax: $0 <buster|bullseye|bookworm|pixie>" >&2
+  echo "syntax: $0 <buster|bullseye|bookworm|trixie>" >&2
   exit 1
 }
 
@@ -53,9 +53,9 @@ case $dist in
     targetdist=bookworm
     extraversion=""
     ;;
-  pixie)
-    debdist=pixie
-    targetdist=pixie
+  trixie)
+    debdist=trixie
+    targetdist=trixie
     extraversion=""
     ;;
   xenial)
@@ -78,7 +78,7 @@ case $dist in
     ;;
   noble)
     # not tested
-    debdist=pixie
+    debdist=trixie
     targetdist=noble
     extraversion="~ubuntu2404+"
     ;;
@@ -185,7 +185,7 @@ case $debdist in
                       d32b309b355f2b377dae585a839e39e3251b3f9716f2b4983be92972c2863000
         ;;
 
-    pixie)
+    trixie)
         fetch_archive setuptools_scm-8.1.0 \
                       https://files.pythonhosted.org/packages/4f/a4/00a9ac1b555294710d4a68d2ce8dfdf39d72aa4d769a7395d05218d88a42/setuptools_scm-8.1.0.tar.gz \
                       42dea1b65771cba93b7a515d65a65d8246e560768a66b9106a592c8e7f26c8a7
