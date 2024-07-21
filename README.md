@@ -69,7 +69,7 @@ Change to the package directory on your build machine and build with a
 debian package building tool of your choice:
 
 ```
-dpkg-buildpackage -b
+dpkg-buildpackage -b --no-sign
 ```
 
 or
