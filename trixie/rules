@@ -94,14 +94,6 @@ install_mlat-client:
 
 clean_mlat-client:
 	rm -fr mlat-client/build mlat-client/dist
-	rm -fr setuptools_scm-8.1.0/build
-	rm -fr trove_classifiers-2024.7.2/build
-	rm -fr pluggy-1.5.0/build pluggy-1.5.0/dist
-	rm -fr flit_core-3.9.0/build flit_core-3.9.0/dist
-	rm -fr pathspec-0.12.1/build pathspec-0.12.1/dist
-	rm -fr hatchling-1.25.0/build hatchling-1.25.0/dist
-	rm -fr hatch_vcs-0.4.0/build hatch_vcs-0.4.0/dist
-	rm -fr filelock-3.15.4/build filelock-3.15.4/dist
 	rm -fr cx_freeze-7.2.0/build cx_Freeze-6.15.9/dist
 	rm -fr $(VENV) $(CURDIR)/wheels
 
