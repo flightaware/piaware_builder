@@ -28,9 +28,9 @@ package/debian/control. Something like this:
 
 ```
 sudo apt install build-essential git devscripts debhelper tcl8.6-dev \
-autoconf python3-dev python3-venv python3-setuptools libz-dev openssl \
-libboost-system-dev libboost-program-options-dev libboost-regex-dev \
-libboost-filesystem-dev patchelf
+  autoconf python3-dev python3-venv python3-setuptools libz-dev openssl \
+  libboost-system-dev libboost-program-options-dev libboost-regex-dev \
+  libboost-filesystem-dev patchelf
 ```
 
 Additional packages are needed in order to build PiAware on Debian Trixie:
