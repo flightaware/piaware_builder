@@ -94,7 +94,7 @@ install_mlat-client:
 
 clean_mlat-client:
 	rm -fr mlat-client/build mlat-client/dist
-	rm -fr cx_freeze-7.2.0/build cx_Freeze-6.15.9/dist
+	rm -fr cx_freeze-7.2.0/build cx_Freeze-7.2.0/dist
 	rm -fr $(VENV) $(CURDIR)/wheels
 
 install_piaware:
