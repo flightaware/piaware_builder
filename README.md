@@ -27,16 +27,16 @@ Ensure that your build machine has the build dependencies mentioned in
 package/debian/control. Something like this:
 
 ```
-$ sudo apt install build-essential git devscripts debhelper tcl8.6-dev \
-  autoconf python3-dev python3-venv python3-setuptools libz-dev openssl \
-  libboost-system-dev libboost-program-options-dev libboost-regex-dev \
-  libboost-filesystem-dev patchelf
+sudo apt install build-essential git devscripts debhelper tcl8.6-dev \
+autoconf python3-dev python3-venv python3-setuptools libz-dev openssl \
+libboost-system-dev libboost-program-options-dev libboost-regex-dev \
+libboost-filesystem-dev patchelf
 ```
 
 Additional packages are needed in order to build PiAware on Debian Trixie:
 
 ```
-$ sudo apt install python3-build python3-pyasyncore python3-filelock
+sudo apt install python3-build python3-pyasyncore python3-filelock
 ```
 
 If you use pdebuild it will do most of this for you.
@@ -69,19 +69,19 @@ Change to the package directory on your build machine and build with a
 debian package building tool of your choice:
 
 ```
-  $ dpkg-buildpackage -b
+dpkg-buildpackage -b
 ```
 
 or
 
 ```
-  $ debuild
+debuild
 ```
 
 or
 
 ```
-  $ pdebuild
+pdebuild
 ```
 
 etc.
