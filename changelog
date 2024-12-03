@@ -1,3 +1,9 @@
+piaware (10.0.1~dev) UNRELEASED; urgency=medium
+
+  * Allow piaware startup without MAC address 
+
+ -- Nick Wan <nicholas.wan@flightaware.com>  Tue, 03 Dec 2024 20:44:22 +0000
+
 piaware (9.0.1) stable; urgency=medium
 
   * Fix fa-mlat-client build on Buster
