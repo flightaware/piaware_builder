@@ -1,4 +1,4 @@
-piaware (10.0) UNRELEASED; urgency=medium
+piaware (10.0) stable; urgency=medium
 
   * Allow piaware startup without MAC address 
 
