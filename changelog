@@ -1,3 +1,9 @@
+piaware (10.0.2~dev) UNRELEASED; urgency=medium
+
+  * In development
+
+ -- Eric Tran <eric.tran@flightaware.com>  Tue, 13 May 2025 22:20:18 -0600
+
 piaware (10.0.1) stable; urgency=medium
 
   * No change release for piaware 10.0.1
