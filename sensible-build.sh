@@ -19,7 +19,7 @@ shallow_clone() {
 }
 
 usage() {
-  echo "syntax: $0 <buster|bullseye|bookworm>" >&2
+  echo "syntax: $0 <buster|bullseye|bookworm|trixie>" >&2
   exit 1
 }
 
@@ -53,6 +53,11 @@ case $dist in
     targetdist=bookworm
     extraversion=""
     ;;
+  trixie)
+    debdist=trixie
+    targetdist=trixie
+    extraversion=""
+    ;;
   xenial)
     # not tested
     debdist=stretch
@@ -70,6 +75,12 @@ case $dist in
     debdist=buster
     targetdist=disco
     extraversion="~ubuntu1904+"
+    ;;
+  noble)
+    # not tested
+    debdist=trixie
+    targetdist=noble
+    extraversion="~ubuntu2404+"
     ;;
   *)
     echo "unknown build distribution $1" >&2
@@ -172,6 +183,12 @@ case $debdist in
         fetch_archive cx_Freeze-6.15.9 \
                       https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.9.tar.gz \
                       d32b309b355f2b377dae585a839e39e3251b3f9716f2b4983be92972c2863000
+        ;;
+
+    trixie)
+        fetch_archive cx_freeze-7.2.0 \
+                      https://files.pythonhosted.org/packages/6e/23/6947cd90cfe87712099fbeab2061309ab1d2a95d54f3453cb6bb21b00034/cx_freeze-7.2.0.tar.gz \
+                      c57f7101b4d35132464b1ec88cb8948c3b7c5b4ece4bb354c16091589cb33583
         ;;
 esac
 
