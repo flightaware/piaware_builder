@@ -19,7 +19,7 @@ shallow_clone() {
 }
 
 usage() {
-  echo "syntax: $0 <buster|bullseye|bookworm>" >&2
+  echo "syntax: $0 <bullseye|bookworm|trixie>" >&2
   exit 1
 }
 
@@ -39,6 +39,7 @@ case $dist in
     extraversion="~bpo9+"
     ;;
   buster)
+    # EOL, not tested
     debdist=buster
     targetdist=buster-backports
     extraversion="~bpo10+"
@@ -51,6 +52,11 @@ case $dist in
   bookworm)
     debdist=bookworm
     targetdist=bookworm
+    extraversion="~bpo12+"
+    ;;
+  trixie)
+    debdist=trixie
+    targetdist=trixie
     extraversion=""
     ;;
   xenial)
@@ -172,6 +178,12 @@ case $debdist in
         fetch_archive cx_Freeze-6.15.9 \
                       https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/6.15.9.tar.gz \
                       d32b309b355f2b377dae585a839e39e3251b3f9716f2b4983be92972c2863000
+        ;;
+
+    trixie)
+        fetch_archive cx_Freeze-8.6.3 \
+                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/8.6.3.tar.gz \
+                      fd5eb43d1a8154211262064d52061464c86ce0be08952f76c60fed3652b81f9d
         ;;
 esac
 
