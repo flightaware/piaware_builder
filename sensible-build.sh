@@ -19,7 +19,7 @@ shallow_clone() {
 }
 
 usage() {
-  echo "syntax: $0 <buster|bullseye|bookworm|trixie>" >&2
+  echo "syntax: $0 <bullseye|bookworm|trixie>" >&2
   exit 1
 }
 
@@ -39,6 +39,7 @@ case $dist in
     extraversion="~bpo9+"
     ;;
   buster)
+    # EOL, not tested
     debdist=buster
     targetdist=buster-backports
     extraversion="~bpo10+"
@@ -51,6 +52,11 @@ case $dist in
   bookworm)
     debdist=bookworm
     targetdist=bookworm
+    extraversion="~bpo12+"
+    ;;
+  trixie)
+    debdist=trixie
+    targetdist=trixie
     extraversion=""
     ;;
   trixie)
@@ -98,15 +104,15 @@ fi
 mkdir -p $OUTDIR
 mkdir -p $OUTDIR/archives
 
-shallow_clone https://github.com/flightaware/piaware.git v10.2 $OUTDIR/piaware
+shallow_clone https://github.com/flightaware/piaware.git dev $OUTDIR/piaware
 
 shallow_clone https://github.com/flightaware/tcllauncher.git v1.10 $OUTDIR/tcllauncher
 
-shallow_clone https://github.com/flightaware/dump1090.git v10.2 $OUTDIR/dump1090
+shallow_clone https://github.com/flightaware/dump1090.git dev $OUTDIR/dump1090
 
 shallow_clone https://github.com/mutability/mlat-client.git v0.2.13 $OUTDIR/mlat-client
 
-shallow_clone https://github.com/flightaware/dump978.git v10.2 $OUTDIR/dump978
+shallow_clone https://github.com/flightaware/dump978.git dev $OUTDIR/dump978
 
 fetch_archive() {
     name=$1
@@ -188,10 +194,10 @@ case $debdist in
     trixie)
         fetch_archive cx_Freeze-8.5.0 \
                       https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/8.5.0.tar.gz \
-	              2502fd12ce008afb2a3f32056e0808cb16f4f863de9b70c016e0f54716b4788e
-	fetch_archive freeze-core-0.4.2 \
-		      https://github.com/marcelotduarte/freeze-core/archive/refs/tags/0.4.2.tar.gz \
-		      1d1ba3c8c8f89feb45fd11478a840c16734fd0f8a3d949b0d788854c84f3ecbe
+	                    2502fd12ce008afb2a3f32056e0808cb16f4f863de9b70c016e0f54716b4788e
+	      fetch_archive freeze-core-0.4.2 \
+		                  https://github.com/marcelotduarte/freeze-core/archive/refs/tags/0.4.2.tar.gz \
+		                  1d1ba3c8c8f89feb45fd11478a840c16734fd0f8a3d949b0d788854c84f3ecbe
 
         ;;
 esac
