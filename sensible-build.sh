@@ -59,11 +59,6 @@ case $dist in
     targetdist=trixie
     extraversion=""
     ;;
-  trixie)
-    debdist=trixie
-    targetdist=trixie
-    extraversion=""
-    ;;
   xenial)
     # not tested
     debdist=stretch
