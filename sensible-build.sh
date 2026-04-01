@@ -77,6 +77,12 @@ case $dist in
     targetdist=disco
     extraversion="~ubuntu1904+"
     ;;
+  noble)
+    # not tested
+    debdist=trixie
+    targetdist=noble
+    extraversion="~ubuntu2404+"
+    ;;
   *)
     echo "unknown build distribution $1" >&2
     usage
@@ -181,9 +187,13 @@ case $debdist in
         ;;
 
     trixie)
-        fetch_archive cx_Freeze-8.6.3 \
-                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/8.6.3.tar.gz \
-                      fd5eb43d1a8154211262064d52061464c86ce0be08952f76c60fed3652b81f9d
+        fetch_archive cx_Freeze-8.5.0 \
+                      https://github.com/marcelotduarte/cx_Freeze/archive/refs/tags/8.5.0.tar.gz \
+	                    2502fd12ce008afb2a3f32056e0808cb16f4f863de9b70c016e0f54716b4788e
+	      fetch_archive freeze-core-0.4.2 \
+		                  https://github.com/marcelotduarte/freeze-core/archive/refs/tags/0.4.2.tar.gz \
+		                  1d1ba3c8c8f89feb45fd11478a840c16734fd0f8a3d949b0d788854c84f3ecbe
+
         ;;
 esac
 
