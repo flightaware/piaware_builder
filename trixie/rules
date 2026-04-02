@@ -18,20 +18,6 @@ override http_proxy := http://127.0.0.1:9/
 override https_proxy := http://127.0.0.1:9/
 export http_proxy https_proxy
 
-# When building/installing wheels we need to ensure that the target
-# platform is set to the correct platform for the Python we're running on;
-# setuptools gets this wrong and looks at "uname -m" which might not match
-# the running Python platform in 32-bit-userspace-on-64-bit-kernel cases
-# (This is fixed in newer wheel releases but we don't have that, so..)
-
-ifeq (arm,$(DEB_HOST_GNU_CPU))
-PYTHON_HOST_PLATFORM=linux-armv7l
-else ifeq (i686,$(DEB_HOST_GNU_CPU))
-PYTHON_HOST_PLATFORM=linux-i686
-else
-PYTHON_HOST_PLATFORM=$(shell $(PYTHON3) -c "import sysconfig; print(sysconfig.get_platform())")
-endif
-
 override_dh_auto_clean: clean_tcllauncher clean_dump1090 clean_mlat-client clean_piaware clean_dump978
 
 override_dh_auto_configure: check_versions configure_tcllauncher
@@ -81,12 +67,12 @@ build_mlat-client:
 	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 	# build cxfreeze for later packaging of mlat-client
 	# cxfreeze now depends on freeze-core which needs to be built first
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels freeze-core-0.4.2
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels freeze-core-0.4.2
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/freeze_core-0.4.2*.whl
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels cx_Freeze-8.5.0
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels cx_Freeze-8.5.0
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_freeze-8.5.0*.whl
 	# build mlat-client proper
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels mlat-client
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels mlat-client
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/mlatclient-*.whl
 
 install_mlat-client:

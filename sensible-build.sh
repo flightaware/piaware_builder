@@ -77,12 +77,6 @@ case $dist in
     targetdist=disco
     extraversion="~ubuntu1904+"
     ;;
-  noble)
-    # not tested
-    debdist=trixie
-    targetdist=noble
-    extraversion="~ubuntu2404+"
-    ;;
   *)
     echo "unknown build distribution $1" >&2
     usage
