@@ -18,14 +18,16 @@ jobs:
       - name: Prepare environment vars
         run: |
           echo "BUILDDIR=${{ runner.temp }}/build" >>$GITHUB_ENV
+      - name: Install early build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends devscripts equivs
       - name: Prepare build tree
         run: |
           . /etc/os-release
           $GITHUB_WORKSPACE/sensible-build.sh $VERSION_CODENAME $BUILDDIR
       - name: Install build prerequisites
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends devscripts equivs
           cd ${{ runner.temp }} && mk-build-deps --tool "apt-get -y --no-install-recommends" --root-cmd sudo --install --remove $BUILDDIR/debian/control
       - name: Build package
         run: |
