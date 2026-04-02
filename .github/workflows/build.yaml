@@ -21,7 +21,7 @@ jobs:
       - name: Prepare build tree
         run: |
           . /etc/os-release
-          ./prepare-build.sh $VERSION_CODENAME $BUILDDIR
+          $GITHUB_WORKSPACE/prepare-build.sh $VERSION_CODENAME $BUILDDIR
       - name: Install build prerequisites
         run: |
           sudo apt-get update
