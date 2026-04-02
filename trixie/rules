@@ -67,12 +67,12 @@ build_mlat-client:
 	$(PYTHON3) -m venv --system-site-packages --without-pip $(VENV)
 	# build cxfreeze for later packaging of mlat-client
 	# cxfreeze now depends on freeze-core which needs to be built first
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels freeze-core-0.4.2
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel --outdir $(CURDIR)/wheels freeze-core-0.4.2
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/freeze_core-0.4.2*.whl
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels cx_Freeze-8.5.0
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel --outdir $(CURDIR)/wheels cx_Freeze-8.5.0
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_freeze-8.5.0*.whl
 	# build mlat-client proper
-	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" --outdir $(CURDIR)/wheels mlat-client
+	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel --outdir $(CURDIR)/wheels mlat-client
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/mlatclient-*.whl
 
 install_mlat-client:
