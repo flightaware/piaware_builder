@@ -59,23 +59,11 @@ case $dist in
     targetdist=trixie
     extraversion=""
     ;;
-  xenial)
+  jammy)
     # not tested
-    debdist=stretch
-    targetdist=xenial
-    extraversion="~ubuntu1604+"
-    ;;
-  bionic)
-    # not tested
-    debdist=buster
-    targetdist=bionic
-    extraversion="~ubuntu1804+"
-    ;;
-  disco)
-    # not tested
-    debdist=buster
-    targetdist=disco
-    extraversion="~ubuntu1904+"
+    debdist=bookworm
+    targetdist=jammy
+    extraversion="~ubuntu2204+"
     ;;
   noble)
     # not tested
