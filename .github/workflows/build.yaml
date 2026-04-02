@@ -1,0 +1,32 @@
+name: Build piaware packages
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    name: Build piaware packages
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+    runs-on: ${{ matrix.image }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Prepare environment vars
+        run: |
+          echo "BUILDDIR=${{ runner.temp }}/build" >>$GITHUB_ENV
+      - name: Prepare build tree
+        run: |
+          . /etc/os-release
+          ./prepare-build.sh $VERSION_CODENAME $BUILDDIR
+      - name: Install build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends devscripts equivs
+          cd ${{ runner.temp }} && mk-build-deps --tool "apt-get -y --no-install-recommends" --root-cmd sudo --install --remove $BUILDDIR/debian/control
+      - name: Build package
+        run: |
+          cd $BUILDDIR && dpkg-buildpackage -b --no-sign
