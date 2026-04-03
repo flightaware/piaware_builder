@@ -1,0 +1,21 @@
+diff -ur cx_Freeze-8.5.0/pyproject.toml cx_Freeze-8.5.0.new/pyproject.toml
+--- cx_Freeze-8.5.0/pyproject.toml
++++ cx_Freeze-8.5.0.new/pyproject.toml
+@@ -49,8 +49,7 @@
+ ]
+ dynamic = ["version"]
+ keywords = ["cx-freeze cxfreeze cx_Freeze freeze python"]
+-license = "PSF-2.0"
+-license-files = ["LICENSE.md"]
++license = {text = "PSF-2.0"}
+ readme = "README.md"
+ requires-python = ">=3.10"
+ 
+@@ -105,6 +104,7 @@
+ 
+ [tool.setuptools]
+ include-package-data = true
++license-files = ["LICENSE.md"]
+ zip-safe = false
+ 
+ [tool.setuptools.dynamic]

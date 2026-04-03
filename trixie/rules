@@ -84,10 +84,10 @@ build_mlat-client:
 	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels freeze-core-0.4.2
 	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/freeze_core-0.4.2*.whl
 	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels cx_Freeze-8.5.0
-	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_freeze-8.5.0*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/cx_Freeze-8.5.0-*.whl
 	# build mlat-client proper
 	$(VENV)/bin/python -m build --skip-dependency-check --no-isolation --wheel -C="--build-option=--plat-name" -C="--build-option=$(PYTHON_HOST_PLATFORM)" --outdir $(CURDIR)/wheels mlat-client
-	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/mlatclient-*.whl
+	$(VENV)/bin/python -m pip install --no-index --no-deps --ignore-installed --require-virtualenv $(CURDIR)/wheels/MlatClient-*.whl
 
 install_mlat-client:
 	# newer cxfreeze deletes --target-dir (see cxfreeze issue #1300), so we have to freeze to a temporary directory and

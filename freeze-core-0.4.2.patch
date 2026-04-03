@@ -1,0 +1,20 @@
+diff -ur freeze-core-0.4.2/pyproject.toml freeze-core-0.4.2.new/pyproject.toml
+--- freeze-core-0.4.2/pyproject.toml
++++ freeze-core-0.4.2.new/pyproject.toml
+@@ -39,8 +39,7 @@
+ ]
+ dynamic = ["version"]
+ keywords = ["freeze-core freeze cx-freeze cxfreeze cx_Freeze python"]
+-license = "MIT"
+-license-files = ["LICENSE"]
++license = {text = "MIT"}
+ readme = "README.md"
+ requires-python = ">=3.10"
+ 
+@@ -68,6 +67,7 @@
+ 
+ [tool.setuptools]
+ include-package-data = true
++license-files = ["LICENSE"]
+ package-dir = {"" = "src"}
+ zip-safe = false
