@@ -32,3 +32,8 @@ jobs:
       - name: Build package
         run: |
           cd $BUILDDIR && dpkg-buildpackage -b --no-sign
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: piaware-${{ matrix.image }}
+          path: ${{ runner.temp }}/*.deb
