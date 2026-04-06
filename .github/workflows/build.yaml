@@ -30,7 +30,7 @@ jobs:
           $GITHUB_WORKSPACE/sensible-build.sh $VERSION_CODENAME $BUILDDIR
       - name: Install build prerequisites
         run: |
-          cd ${{ runner.temp }} && mk-build-deps --tool "apt-get -y --no-install-recommends" --root-cmd sudo --install --remove $BUILDDIR/debian/control
+          cd ${{ runner.temp }} && mk-build-deps --tool "apt-get -y -o Debug::pkgProblemResolver=yes --no-install-recommends" --root-cmd sudo --install --remove $BUILDDIR/debian/control
       - name: Build package
         run: |
           cd $BUILDDIR && dpkg-buildpackage -b --no-sign
