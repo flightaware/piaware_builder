@@ -59,12 +59,6 @@ case $dist in
     targetdist=trixie
     extraversion=""
     ;;
-  jammy)
-    # not tested
-    debdist=bookworm
-    targetdist=jammy
-    extraversion="~ubuntu2204+"
-    ;;
   noble)
     debdist=trixie
     targetdist=noble
