@@ -59,23 +59,15 @@ case $dist in
     targetdist=trixie
     extraversion=""
     ;;
-  xenial)
-    # not tested
-    debdist=stretch
-    targetdist=xenial
-    extraversion="~ubuntu1604+"
+  jammy)
+    debdist=bullseye
+    targetdist=jammy
+    extraversion="~ubuntu2204+"
     ;;
-  bionic)
-    # not tested
-    debdist=buster
-    targetdist=bionic
-    extraversion="~ubuntu1804+"
-    ;;
-  disco)
-    # not tested
-    debdist=buster
-    targetdist=disco
-    extraversion="~ubuntu1904+"
+  noble)
+    debdist=trixie
+    targetdist=noble
+    extraversion="~ubuntu2404+"
     ;;
   *)
     echo "unknown build distribution $1" >&2

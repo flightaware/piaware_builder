@@ -1,0 +1,41 @@
+name: Build piaware packages
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    name: Build piaware packages
+    strategy:
+      fail-fast: false
+      matrix:
+        image:
+          - ubuntu-22.04
+          - ubuntu-22.04-arm
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+    runs-on: ${{ matrix.image }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Prepare environment vars
+        run: |
+          echo "BUILDDIR=${{ runner.temp }}/build" >>$GITHUB_ENV
+      - name: Install early build prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends devscripts equivs
+      - name: Prepare build tree
+        run: |
+          . /etc/os-release
+          $GITHUB_WORKSPACE/sensible-build.sh $VERSION_CODENAME $BUILDDIR
+      - name: Install build prerequisites
+        run: |
+          cd ${{ runner.temp }} && mk-build-deps --tool "apt-get -y -o Debug::pkgProblemResolver=yes --no-install-recommends" --root-cmd sudo --install --remove $BUILDDIR/debian/control
+      - name: Build package
+        run: |
+          cd $BUILDDIR && dpkg-buildpackage -b --no-sign
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: piaware-${{ matrix.image }}
+          path: ${{ runner.temp }}/*.deb
