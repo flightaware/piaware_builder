@@ -65,6 +65,11 @@ case $dist in
     targetdist=jammy
     extraversion="~ubuntu2204+"
     ;;
+  noble)
+    debdist=trixie
+    targetdist=noble
+    extraversion="~ubuntu2404+"
+    ;;
   *)
     echo "unknown build distribution $1" >&2
     usage
