@@ -1,8 +1,10 @@
 piaware (11.0) UNRELEASED; urgency=medium
 
-  * in development
+  * Add support for Trixie
+  * Fix unhandled TLS callback on Trixie; Support TLS1.3 and disable everything else
+  * Update adept server fallback IPs
 
- -- Oliver Jowett <oliver.jowett@flightaware.com>  Tue, 31 Mar 2026 17:42:10 +0800
+ -- Eric Tran <eric.tran@flightaware.com>  Wed, 13 May 2026 04:42:10 -0500
 
 piaware (10.2) stable; urgency=medium
 
