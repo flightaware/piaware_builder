@@ -1,8 +1,8 @@
-piaware (11.1~alpha) UNRELEASED; urgency=medium
+piaware (11.1) stable; urgency=medium
 
-  * In development.
+  * No change release for piaware 11.1
 
- -- Ziquan Wang <ziquan.wang@flightaware.com>  Thu, 28 May 2026 11:34:28 -0500
+ -- Ziquan Wang <ziquan.wang@flightaware.com>  Wed, 01 Jul 2026 14:10:04 -0500
 
 piaware (11.0) stable; urgency=medium
 
@@ -10,7 +10,7 @@ piaware (11.0) stable; urgency=medium
   * Fix unhandled TLS callback on Trixie; Support TLS1.3 and disable everything else
   * Update adept server fallback IPs
 
- -- Eric Tran <eric.tran@flightaware.com>  Thu, 14 May 2026 13:58:10 -0500
+ -- Eric Tran <eric.tran@flightaware.com>  Wed, 13 May 2026 04:42:10 -0500
 
 piaware (10.2) stable; urgency=medium
 
